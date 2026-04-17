@@ -37,8 +37,8 @@ sudo pacman -Syu --noconfirm
 
 sudo pacman -S --needed --noconfirm \
   zsh git curl unzip base-devel \
-  fzf ripgrep bat ca-certificates \
-  github-cli
+  fzf ripgrep bat lsd ca-certificates \
+  github-cli hyprpaper
 
 # bat ya se llama bat en Arch, no batcat
 
@@ -96,7 +96,9 @@ else
 fi
 
 # ---- symlinks dotfiles ----
-log "Creando symlinks"
+log "*************************"
+log "** Creando symlinks... **"
+log "*************************"
 
 # If exist make backup
 backup() {
@@ -178,8 +180,17 @@ mkdir -p "${HOME}/projects"
 # ---- opcional AUR helper ----
 if [ -n "${AUR_HELPER}" ]; then
   log "AUR helper detectado: ${AUR_HELPER}"
+
+  # Instalación de fuentes
+  if [ "${AUR_HELPER}" == "yay" ]; then
+      yay -Sy maplemono-nf-unhinted ttf-nerd-fonts-symbols ttf-nerd-fonts-symbols-mono \
+              ttf-nerd-fonts-symbols-common ttf-font-awesome noto-fonts-cjk ttf-ms-win11-auto
+
+    fc-cache -fv
+  fi
 else
-  warn "No se detectó yay/paru. Si usas AUR instálalo luego."
+    warn "No se detectó yay/paru. Si usas AUR instálalo luego."
+    warn "Instala las fuentes necesarias para que los iconos se muestren correctamente."
 fi
 
 log "Finalizado"
