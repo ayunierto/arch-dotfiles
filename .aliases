@@ -1,0 +1,17 @@
+# Files
+alias ll='lsd -la'
+alias l='ls -CF'
+alias fd='fdfind'
+
+# Git
+alias gs='git status'
+alias ga='git add .'
+alias gc='git commit -m'
+alias gp='git push'
+
+# Dev
+alias dev='pnpm dev'
+alias edc='npx expo start -c'
+
+# System
+alias reload='source ~/.zshrc'

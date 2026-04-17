@@ -1,0 +1,13 @@
+[user]
+    name = Alcides Turruellas
+    email = ayunierto@gmail.com
+
+[core]
+    editor = zed --wait
+
+[alias]
+    co = checkout
+    br = branch
+    st = status
+[init]
+	defaultBranch = main
