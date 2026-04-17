@@ -2,7 +2,10 @@
 set -euo pipefail
 
 DOTFILES_DIR="${HOME}/.dotfiles"
+BIN_SRC="$DOTFILES_DIR/bin"
+CONFIG_SRC="$DOTFILES_DIR/config"
 ZSH_CUSTOM_DIR="${ZSH_CUSTOM:-${HOME}/.oh-my-zsh/custom}"
+
 
 log() { printf "\n[+] %s\n" "$1"; }
 warn() { printf "\n[!] %s\n" "$1"; }
@@ -95,27 +98,73 @@ fi
 # ---- symlinks dotfiles ----
 log "Creando symlinks"
 
+# If exist make backup
+backup() {
+  local target="$1"
+  if [ -e "$target" ] && [ ! -L "$target" ]; then
+    local ts
+    ts=$(date +%Y%m%d_%H%M%S)
+    mv "$target" "${target}.backup.${ts}"
+    echo "Backup creado: ${target}.backup.${ts}"
+  fi
+}
+
+# Create symlinks
 link_file() {
   local src="$1"
   local dest="$2"
 
-  if [ -e "$dest" ] && [ ! -L "$dest" ]; then
-    warn "Backup de $dest -> ${dest}.bak"
-    mv "$dest" "${dest}.bak"
+  if [ ! -e "$src" ]; then
+    echo "⚠️  No existe origen: $src" >&2
+    return 1
   fi
 
+  mkdir -p "$(dirname "$dest")"
+  backup "$dest"
+
   ln -sf "$src" "$dest"
+  echo "✓ $dest -> $src"
 }
 
-# Configs
-link_file "${DOTFILES_DIR}/.zshrc" "${HOME}/.zshrc"
-link_file "${DOTFILES_DIR}/.aliases" "${HOME}/.aliases"
-link_file "${DOTFILES_DIR}/.exports" "${HOME}/.exports"
-link_file "${DOTFILES_DIR}/.gitconfig" "${HOME}/.gitconfig"
+# Archivos en la raíz del home (~)
+FILES=(
+  ".zshrc"
+  ".aliases"
+  ".exports"
+  ".gitconfig"
+)
 
-# Scripts
-link_file "${DOTFILES_DIR}/bin/reload-waybar" "${HOME}/.local/bin/reload-waybar"
-link_file "${DOTFILES_DIR}/bin/reload-swaync" "${HOME}/.local/bin/reload-swaync"
+# Directorios dentro de ~/.config
+CONFIG_DIRS=(
+  "hypr"
+  "kitty"
+  "rofi"
+  "swaync"
+  "waybar"
+  "wofi"
+)
+
+# Archivos dentro de ~/.local/bin
+BIN_FILES=(
+    "reload-swaync"
+    "reload-waybar"
+)
+
+# Archivos en $HOME
+for f in "${FILES[@]}"; do
+    link_file "$DOTFILES_DIR/$f" "$HOME/$f"
+done
+
+ # Scripts en ~/.local/bin
+ mkdir -p "$HOME/.local/bin"
+ for b in "${BIN_FILES[@]}"; do
+   link_file "$BIN_SRC/$b" "$HOME/.local/bin/$b"
+ done
+
+# Directorios en ~/.config
+for d in "${CONFIG_DIRS[@]}"; do
+  link_file "$CONFIG_SRC/$d" "$HOME/.config/$d"
+done
 
 # ---- shell por defecto ----
 if [ "${SHELL##*/}" != "zsh" ]; then

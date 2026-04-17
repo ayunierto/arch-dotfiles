@@ -1,6 +1,6 @@
 # Dotfiles
 
-Configuración personal para entorno de desarrollo en WSL (Ubuntu) enfocada en:
+Configuración personal para entorno de desarrollo Arch enfocada en:
 
 - Simplicidad
 - Reproducibilidad
@@ -14,12 +14,14 @@ Shell minimal con:
 - syntax highlighting
 - tooling moderna (fzf, ripgrep, bat)
 
-Diseñado para WSL2 + Ubuntu LTS.
+Diseñado para Arch Linux.
 
 ## Estructura
 
 ```
 .dotfiles/
+ ├── bin
+ ├── config
  ├── install.sh
  ├── bootstrap.sh
  ├── .zshrc
@@ -51,10 +53,9 @@ Diseñado para WSL2 + Ubuntu LTS.
 
 ## Supported Environments
 
-- WSL2 (Ubuntu 22.04 / 24.04)
-- Native Linux (Ubuntu-based)
+- Arch Linux
 
-Not tested on macOS or non-Debian distros.
+Not tested on others distros.
 
 ## Bootstrap Flow
 
@@ -68,6 +69,7 @@ install.sh
   → configures zsh + plugins
   → installs nvm + Node
   → links dotfiles
+  → links configs
 
   ## Idempotency
 
