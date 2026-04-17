@@ -8,8 +8,8 @@
       "logout": "hyprshutdown >/dev/null 2>&1 && hyprshutdown || hyprctl dispatch exit",
       "suspend": "systemctl suspend",
       "reboot": "reboot",
-      "shutdown": "shutdown"
+      "shutdown": "shutdown now",
       // "hibernate": "systemctl hibernate"
-    }
-  }
+    },
+  },
 }
