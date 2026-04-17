@@ -7,8 +7,8 @@
     "menu-actions": {
       "logout": "hyprshutdown >/dev/null 2>&1 && hyprshutdown || hyprctl dispatch exit",
       "suspend": "systemctl suspend",
-      "reboot": "reboot",
-      "shutdown": "shutdown now",
+      "reboot": "hyprshutdown -t 'Restarting...' --post-cmd 'reboot'",
+      "shutdown": "hyprshutdown -t 'Shutting down...' --post-cmd 'shutdown -P 0'",
       // "hibernate": "systemctl hibernate"
     },
   },

@@ -5,8 +5,8 @@
       "(.*) - Chromium": "  $1",
       "(.*) - fish": " [$1]",
       "(.*) - Visual Studio Code": "󰨞  $1",
-      "(.*@arch.*)": " $1"
+      "(.*@arch.*)": " $1",
     },
-    "separate-outputs": true
-  }
+    "separate-outputs": true,
+  },
 }

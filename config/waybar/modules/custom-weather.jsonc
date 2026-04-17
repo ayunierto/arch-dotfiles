@@ -18,6 +18,6 @@
     "format": "  {}",
     "tooltip": true,
     "interval": 3600,
-    "on-click": "kitty --hold --class center-float fish -c 'curl wttr.in/Chiclayo+Peru'"
-  }
+    "on-click": "kitty --hold --class center-float fish -c 'curl wttr.in/Chiclayo+Peru'",
+  },
 }

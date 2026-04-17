@@ -13,10 +13,10 @@
       "phone-muted": "",
       "portable": "",
       "car": "",
-      "default": ["", ""]
+      "default": [" ", " "],
     },
     "scroll-step": 5,
     "on-click": "pavucontrol",
-    "ignored-sinks": ["Easy Effects Sink"]
-  }
+    "ignored-sinks": ["Easy Effects Sink"],
+  },
 }
