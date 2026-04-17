@@ -7,8 +7,8 @@ Esta guía permite configurar un entorno de desarrollo para **Expo / React Nativ
 Antes de comenzar, asegúrate de tener instalado el Java Development Kit (JDK). Para Expo, se recomienda la versión 17.
 
 ```bash
-sudo apt update
-sudo apt install openjdk-17-jdk -y
+sudo pacman -Syu
+sudo pacman -S jdk17-openjdk
 ```
 
 ## 🛠️ Paso 1: Descarga de Herramientas
@@ -44,6 +44,8 @@ Para que los comandos sean accesibles desde cualquier terminal, edita tu archivo
 
 ```bash
 nano ~/.bashrc
+# o
+nano ~/.zshrc
 ```
 
 Copia y pega lo siguiente al final del archivo:
@@ -56,7 +58,7 @@ export PATH=$PATH:$ANDROID_HOME/platform-tools
 export PATH=$PATH:$ANDROID_HOME/emulator
 
 # Java Home (Opcional pero recomendado)
-export JAVA_HOME=/usr/lib/jvm/java-17-openjdk-amd64
+export JAVA_HOME=/usr/lib/jvm/java-17-openjdk
 ```
 
 Guarda los cambios (Ctrl+O, Enter, Ctrl+X) y aplica la configuración:

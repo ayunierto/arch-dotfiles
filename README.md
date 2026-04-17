@@ -94,5 +94,21 @@ chmod +x install.sh
 ```
 
 ## Otras instalaciones
-1. [Docker](https://docs.docker.com/engine/install/ubuntu/#install-using-the-repository)
-2. [Cloudflare Tunnel](https://developers.cloudflare.com/cloudflare-one/networks/connectors/cloudflare-tunnel/do-more-with-tunnels/local-management/create-local-tunnel/#1-download-and-install-cloudflared). [Post install](https://docs.docker.com/engine/install/linux-postinstall)
+1. Docker 
+```bash
+sudo pacman -S docker  docker-compose
+```
+
+[Post install](https://docs.docker.com/engine/install/linux-postinstall)
+
+
+2. [Cloudflare Tunnel](https://developers.cloudflare.com/cloudflare-one/networks/connectors/cloudflare-tunnel/do-more-with-tunnels/local-management/create-local-tunnel/#1-download-and-install-cloudflared). 
+
+## Comandos utiles
+```bash
+# Guardar credeciales de git
+git config --global credential.helper store
+
+# Install pnpm 
+npm i -g pnpm 
+```

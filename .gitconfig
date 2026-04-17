@@ -11,3 +11,5 @@
     st = status
 [init]
 	defaultBranch = main
+[credential]
+	helper = store
