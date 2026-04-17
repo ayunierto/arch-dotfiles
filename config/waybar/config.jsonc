@@ -1,0 +1,14 @@
+[
+  {
+    "reload_style_on_change": true,
+    "toggle": true,
+    "include": "~/.config/waybar/bars/top/top-bar-2.jsonc",
+    "layer": "top"
+  }
+  // {
+  //   "reload_style_on_change": true,
+  //   "toggle": true,
+  //   "include": "~/.config/waybar/bars/vertical-bar.jsonc",
+  //   "layer": "top"
+  // }
+]

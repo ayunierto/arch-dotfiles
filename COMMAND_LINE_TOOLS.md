@@ -1,4 +1,4 @@
-# 🚀 Guía de Instalación: Android SDK Command Line Tools (Ubuntu)
+# 🚀 Guía de Instalación: Android SDK Command Line Tools (Arch Linux)
 
 Esta guía permite configurar un entorno de desarrollo para **Expo / React Native** sin necesidad de instalar Android Studio completo, ahorrando espacio y recursos de sistema.
 
@@ -98,12 +98,3 @@ adb pair <IP>:<port-pair-code>
 adb connect <IP>:<port> 
 npx expo run:android
 ```
-
-
-## Connect android phone
-
-En powershell ejecutar:
-```bash
- netsh interface portproxy add v4tov4 listenaddress=0.0.0.0 listenport=8081 connectaddress=127.0.0.1 connectport=8081
- ```
-Esto crea un tunel entre el host y wsl

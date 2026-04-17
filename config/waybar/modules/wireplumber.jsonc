@@ -1,0 +1,13 @@
+{
+  "wireplumber": {
+    "format": "{volume}% {icon}",
+    "format-alt": "{icon}",
+    "format-muted": " ",
+    "on-click": "helvum",
+    "max-volume": 150,
+    "scroll-step": 5,
+    "format-icons": [" ", " ", " "],
+    "tooltip": true,
+    "tooltip-format": "Volume: {volume}%"
+  }
+}

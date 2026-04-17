@@ -1,0 +1,57 @@
+/* @import '../waybar/theme/theme.css'; */
+@import url('/home/neo/.config/waybar/theme/theme.css');
+
+* {
+  font-family: 'JetBrainsMono NF', Roboto, Helvetica, Arial, sans-serif;
+  font-size: 16px;
+  border: none;
+}
+
+#window {
+  background-color: transparent;
+  transition: background-color 0.3s ease;
+}
+
+#outer-box {
+  background-color: alpha(@card, 0.7);
+  border: 1px solid @border;
+  border-radius: 12px;
+  /* padding: 15px; */
+}
+
+#input {
+  background-color: @input;
+  color: @foreground;
+  border: 2px solid @border;
+  border-radius: 10px;
+  margin: 16px 16px 0 16px;
+  padding: 8px 12px;
+}
+
+#input::placeholder {
+  color: @mutedForeground;
+}
+
+#input:focus {
+  border-color: @ring;
+  box-shadow: 0 0 0 2px alpha(@ring, 0.4);
+}
+
+#scroll {
+  padding: 10px;
+}
+
+#entry {
+  background-color: transparent;
+  color: @foreground;
+  padding: 12px 14px;
+  border-radius: 10px;
+  margin: 0 10px;
+  border: none;
+}
+
+#entry:selected {
+  background-color: @accent;
+  color: @accentForeground;
+  font-weight: bold;
+}

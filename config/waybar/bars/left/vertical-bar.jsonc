@@ -1,0 +1,19 @@
+// -*- mode: jsonc -*-
+{
+  "width": 40,
+  "position": "left",
+  "spacing": 4,
+  "margin-left": 4,
+  "margin-top": 4,
+  "margin-bottom": 4,
+  "modules-left": [],
+  "modules-center": ["hyprland/workspaces"],
+  "modules-right": ["network", "battery", "clock"],
+
+  "include": [
+    "~/.config/waybar/modules/hyprland-workspaces.jsonc",
+    "~/.config/waybar/modules/network.jsonc",
+    "~/.config/waybar/modules/battery.jsonc",
+    "~/.config/waybar/modules/clock.jsonc"
+  ]
+}
