@@ -5,6 +5,7 @@
     "format": "{icon}",
     "format-alt": "{percent}% {icon} ",
     "on-click": "brightnessctl",
-    "format-icons": ["", "", "", "", "", "", "", "", ""]
-  }
+    "tooltip": true,
+    "format-icons": ["", "", "", "", "", "", "", "", ""],
+  },
 }

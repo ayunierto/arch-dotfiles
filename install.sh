@@ -38,7 +38,7 @@ sudo pacman -Syu --noconfirm
 sudo pacman -S --needed --noconfirm \
   zsh git curl unzip base-devel \
   fzf ripgrep bat lsd ca-certificates \
-  github-cli hyprpaper
+  github-cli hyprpaper hypridle swaync
 
 # bat ya se llama bat en Arch, no batcat
 
@@ -181,10 +181,11 @@ mkdir -p "${HOME}/projects"
 if [ -n "${AUR_HELPER}" ]; then
   log "AUR helper detectado: ${AUR_HELPER}"
 
-  # Instalación de fuentes
+  # Instalación de fuentes y otros paquetes
   if [ "${AUR_HELPER}" == "yay" ]; then
       yay -Sy maplemono-nf-unhinted ttf-nerd-fonts-symbols ttf-nerd-fonts-symbols-mono \
-              ttf-nerd-fonts-symbols-common ttf-font-awesome noto-fonts-cjk ttf-ms-win11-auto
+              ttf-nerd-fonts-symbols-common ttf-font-awesome noto-fonts-cjk ttf-ms-win11-auto \
+              hyprshutdown
 
     fc-cache -fv
   fi
