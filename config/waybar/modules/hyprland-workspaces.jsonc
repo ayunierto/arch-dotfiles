@@ -1,0 +1,17 @@
+{
+  "hyprland/workspaces": {
+    "format": "{windows}",
+    "format-window-separator": " ",
+    "window-rewrite-default": "",
+    "window-rewrite": {
+      "title<.*youtube.*>": "", // Windows whose titles contain "youtube"
+      "class<chromium>": "", // Windows whose classes are "chromium"
+      "class<chromium> title<.*github.*>": "", // Windows whose class is "chromium" and title contains "github". Note that "class" always comes first.
+      "class<kitty>": "", // Windows that contain "kitty" in either class or title. For optimization reasons, it will only match against a title if at least one other window explicitly matches against a title.
+      "class<code>": "󰨞"
+    },
+    "on-click": "hyprctl dispatch workspace {id}",
+    "on-scroll-up": "hyprctl dispatch workspace prev",
+    "on-scroll-down": "hyprctl dispatch workspace next"
+  }
+}

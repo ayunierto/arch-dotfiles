@@ -1,0 +1,60 @@
+@define-color Rosewater           #dc8a78;
+@define-color Flamingo            #dd7878;
+@define-color Pink                #ea76cb;
+@define-color Mauve               #8839ef;
+@define-color Red                 #d20f39;
+@define-color Maroon              #e64553;
+@define-color Peach               #fe640b;
+@define-color Yellow              #df8e1d;
+@define-color Green               #40a02b;
+@define-color Teal                #179299;
+@define-color Sky                 #04a5e5;
+@define-color Sapphire            #209fb5;
+@define-color Blue                #1e66f5;
+@define-color Lavender            #7287fd;
+@define-color Text                #4c4f69;
+@define-color Subtext1            #5c5f77;
+@define-color Subtext0            #6c6f85;
+@define-color Overlay2            #7c7f93;
+@define-color Overlay1            #8c8fa1;
+@define-color Overlay0            #9ca0b0;
+@define-color Surface2            #acb0be;
+@define-color Surface1            #bcc0cc;
+@define-color Surface0            #ccd0da;
+@define-color Base                #eff1f5;
+@define-color Mantle              #e6e9ef;
+@define-color Crust               #dce0e8;
+
+@define-color background              @Base;
+@define-color foreground              @Text;
+
+@define-color card                    @Surface0;
+@define-color cardForeground          @Text;
+
+@define-color popover                 @Surface1;
+@define-color popoverForeground       @Text;
+
+@define-color primary                 @Blue;
+@define-color primaryForeground       @Base;
+
+@define-color secondary               @Sapphire;
+@define-color secondaryForeground     @Base;
+
+@define-color muted                   @Surface2;
+@define-color mutedForeground         @Subtext0;
+
+@define-color accent                  @Mauve;
+@define-color accentForeground        @Base;
+
+@define-color success                 @Green;
+@define-color successForeground       @Base;
+
+@define-color warning                 @Peach;
+@define-color warningForeground       @Base;
+
+@define-color destructive             @Red;
+@define-color destructiveForeground   @Base;
+
+@define-color border                  alpha(@Overlay1, 0.6);
+@define-color input                   @Surface0;
+@define-color ring                    @Blue;

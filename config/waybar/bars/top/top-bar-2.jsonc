@@ -1,0 +1,44 @@
+{
+  // "height": 40,
+  "layer": "top",
+  "position": "top",
+  "spacing": 4,
+  "margin-top": 4,
+
+  "modules-left": ["custom/weather", "memory", "cpu", "disk"],
+  "modules-center": [
+    "hyprland/workspaces"
+    // "hyprland/submap",
+    // "hyprland/window"
+  ],
+
+  "modules-right": [
+    "backlight",
+    "temperature",
+    "sway/language",
+    "pulseaudio",
+    "network",
+    "custom/notifications",
+    "battery",
+    "clock",
+    "custom/power"
+  ],
+
+  // Modules configuration
+  "include": [
+    "~/.config/waybar/modules/memory.jsonc",
+    "~/.config/waybar/modules/custom-weather.jsonc",
+    "~/.config/waybar/modules/hyprland-workspaces-persistent.jsonc",
+    "~/.config/waybar/modules/cpu.jsonc",
+    "~/.config/waybar/modules/disk.jsonc",
+    "~/.config/waybar/modules/hyprland-window.jsonc",
+    "~/.config/waybar/modules/backlight.jsonc",
+    "~/.config/waybar/modules/temperature.jsonc",
+    "~/.config/waybar/modules/pulseaudio.jsonc",
+    "~/.config/waybar/modules/network.jsonc",
+    "~/.config/waybar/modules/custom-notifications.jsonc",
+    "~/.config/waybar/modules/battery.jsonc",
+    "~/.config/waybar/modules/clock.jsonc",
+    "~/.config/waybar/modules/custom-power.jsonc"
+  ]
+}

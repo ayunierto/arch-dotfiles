@@ -107,10 +107,15 @@ link_file() {
   ln -sf "$src" "$dest"
 }
 
+# Configs
 link_file "${DOTFILES_DIR}/.zshrc" "${HOME}/.zshrc"
 link_file "${DOTFILES_DIR}/.aliases" "${HOME}/.aliases"
 link_file "${DOTFILES_DIR}/.exports" "${HOME}/.exports"
 link_file "${DOTFILES_DIR}/.gitconfig" "${HOME}/.gitconfig"
+
+# Scripts
+link_file "${DOTFILES_DIR}/bin/reload-waybar" "${HOME}/.local/bin/reload-waybar"
+link_file "${DOTFILES_DIR}/bin/reload-swaync" "${HOME}/.local/bin/reload-swaync"
 
 # ---- shell por defecto ----
 if [ "${SHELL##*/}" != "zsh" ]; then
@@ -118,7 +123,7 @@ if [ "${SHELL##*/}" != "zsh" ]; then
   chsh -s "$(command -v zsh)" || warn "No se pudo cambiar shell automáticamente"
 fi
 
-# ---- carpetas base ----
+# ---- carpetas base para proyectos dev ----
 mkdir -p "${HOME}/projects"
 
 # ---- opcional AUR helper ----

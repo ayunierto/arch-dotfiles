@@ -1,0 +1,9 @@
+{
+  "hyprland/language": {
+    "format": "Lang: {}",
+    "format-en": "AMERICA, HELL YEAH!",
+    "format-en-colemak_dh": "AMERICA (Colemak-DH), HELL YEAH",
+    "format-tr": "As bayrakları",
+    "keyboard-name": "at-translated-set-2-keyboard"
+  }
+}

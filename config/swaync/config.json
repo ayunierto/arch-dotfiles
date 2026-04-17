@@ -1,0 +1,144 @@
+{
+  "$schema": "/etc/xdg/swaync/configSchema.json",
+  "positionX": "right",
+  "positionY": "top",
+  "cssPriority": "user",
+
+  "control-center-width": 460,
+  "control-center-height": 960,
+  "control-center-margin-top": 2,
+  "control-center-margin-bottom": 2,
+  "control-center-margin-right": 1,
+  "control-center-margin-left": 0,
+
+  "notification-window-width": 400,
+  "notification-body-image-height": 160,
+  "notification-body-image-width": 200,
+
+  "timeout": 4,
+  "timeout-low": 2,
+  "timeout-critical": 6,
+
+  "fit-to-screen": false,
+  "keyboard-shortcuts": true,
+  "image-visibility": "when-available",
+  "transition-time": 300,
+  "hide-on-clear": false,
+  "hide-on-action": false,
+  "script-fail-notify": true,
+  "scripts": {
+    "sound-script": {
+      "exec": "paplay ~/.config/swaync/notification.ogg",
+      "app-name": ".*"
+    },
+    "example-script": {
+      "exec": "echo 'Do something...'",
+      "urgency": "Normal"
+    }
+  },
+  "notification-visibility": {
+    "example-name": {
+      "state": "muted",
+      "urgency": "Low",
+      "app-name": "Spotify"
+    }
+  },
+  "widgets": [
+    "label",
+    "buttons-grid",
+    "mpris",
+    "title",
+    "dnd",
+    "notifications"
+  ],
+  "widget-config": {
+    "label": {
+      "max-lines": 1,
+      "text": " "
+    },
+    "buttons-grid": {
+      "actions": [
+        {
+          "label": "",
+          "command": "amixer set Master toggle",
+          "type": "toggle"
+        },
+        {
+          "label": "",
+          "command": "amixer set Capture toggle",
+          "type": "toggle"
+        },
+        {
+          "label": " ",
+          "command": "nm-connection-editor"
+        },
+        {
+          "label": "󰂯",
+          "command": "blueman-manager"
+        },
+        {
+          "label": "󰏘",
+          "command": "nwg-look"
+        },
+        {
+          "label": "󰏘",
+          "command": "nwg-look"
+        },
+        {
+          "label": "󰏘",
+          "command": "nwg-look"
+        },
+        {
+          "label": "󰏘",
+          "command": "nwg-look"
+        },
+        {
+          "label": "󰏘",
+          "command": "nwg-look"
+        },
+        {
+          "label": "󰝟",
+          "command": "pactl set-sink-mute @DEFAULT_SINK@ toggle",
+          "type": "toggle"
+        },
+        {
+          "label": "",
+          "command": "kitty bash -i -c 'tasks'"
+        },
+        {
+          "label": "",
+          "command": "hyprlock"
+        },
+        {
+          "label": "",
+          "command": "reboot"
+        },
+        {
+          "label": "",
+          "command": "shutdown now"
+        }
+      ]
+    },
+    "mpris": {
+      "blacklist": ["playerctl"],
+      "autohide": false,
+      "show-album-art": "always",
+      "loop-carousel": false
+    },
+    "title": {
+      "text": "Notifications",
+      "clear-all-button": true,
+      "button-text": " 󰎟 "
+    },
+    "dnd": {
+      "text": "Do not disturb"
+    },
+    "volume": {
+      "label": "󰕾",
+      "show-per-app": true
+    },
+    "backlight": {
+      "label": "󰃟"
+    }
+  }
+}

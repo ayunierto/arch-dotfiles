@@ -1,0 +1,10 @@
+{
+  "backlight": {
+    // "device": "acpi_video1",
+    "step": 5,
+    "format": "{icon}",
+    "format-alt": "{percent}% {icon} ",
+    "on-click": "brightnessctl",
+    "format-icons": ["", "", "", "", "", "", "", "", ""]
+  }
+}

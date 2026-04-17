@@ -1,0 +1,42 @@
+// {
+//   "battery": {
+//     // "bat": "BAT0",
+//     "interval": 5,
+//     "states": {
+//       // "good": 95,
+//       "warning": 30,
+//       "critical": 15
+//     },
+//     "format": "{icon}",
+//     "format-alt": "{timeTo} {icon}",
+//     "format-full": "{icon}",
+//     "format-charging": "{capacity}% ",
+//     // "format-good": "", // An empty format will hide the module
+//     // "format-full": "",
+//     "format-icons": ["󰁺", "󰁻", "󰁼", "󰁽", "󰁾", "󰁿", "󰂀", "󰂁", "󰂂", "󰁹"],
+//     "max-length": 25,
+//     "tooltip": true,
+//     "tooltip-format": "Battery: {capacity}%\nTime to: {timeTo}"
+//   }
+// }
+
+{
+  "battery": {
+    "bat": "BAT0",
+    // "adapter": "AC0",
+    "interval": 60,
+    "states": {
+      "warning": 30,
+      "critical": 15,
+    },
+    "format": "{capacity}% {icon}",
+    "format-full": "{capacity}% ",
+    "format-discharging": "{capacity}% {icon}",
+    "format-charging": "{capacity}% ",
+    // "format-icons": ["", "", "", "", ""],
+    "format-icons": ["󰁺", "󰁻", "󰁼", "󰁽", "󰁾", "󰁿", "󰂀", "󰂁", "󰂂", "󰁹"],
+    "max-length": 25,
+    "tooltip": true,
+    "tooltip-format": "Battery: {capacity}%\nTime to: {timeTo}",
+  },
+}

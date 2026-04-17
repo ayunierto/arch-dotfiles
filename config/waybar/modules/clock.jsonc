@@ -1,0 +1,9 @@
+{
+  "clock": {
+    "locale": "C",
+    "interval": 60,
+    "format": "{:%a %R}  ",
+    "format-alt": "{:%a %r}  ",
+    "tooltip-format": "{:%A %d-%m-%Y }"
+  }
+}

@@ -1,0 +1,27 @@
+{
+  "editor.fontFamily": "'JetBrainsMono NF' , 'Maple Mono NF' , 'Fira Code', 'Courier New', monospace",
+  "editor.fontSize": 14,
+  "github.copilot.nextEditSuggestions.enabled": true,
+  "editor.minimap.enabled": false,
+  "git.enableSmartCommit": true,
+  "git.confirmSync": false,
+  "workbench.colorTheme": "Catppuccin Mocha",
+  "workbench.iconTheme": "catppuccin-mocha",
+  "editor.stickyScroll.enabled": false,
+  "window.menuBarVisibility": "compact",
+  "git.autofetch": true,
+  "github.copilot.enable": {
+    "*": true,
+    "plaintext": false,
+    "markdown": true,
+    "scminput": false
+  },
+  "editor.formatOnSave": true,
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "editor.formatOnPaste": true,
+  "chat.viewSessions.enabled": false,
+  "window.commandCenter": false,
+  "workbench.layoutControl.enabled": false,
+  "chat.commandCenter.enabled": false,
+  "workbench.editor.showTabs": "single"
+}
