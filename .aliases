@@ -11,7 +11,11 @@ alias gp='git push'
 
 # Dev
 alias dev='pnpm dev'
-alias edc='npx expo start -c'
+alias edc='npx expo start -c --dev-client'
+
+# Docker
+alias start-docker="sudo systemctl start docker.service"
+alias stop-docker="sudo systemctl stop docker.service"
 
 # System
 alias reload='source ~/.zshrc'

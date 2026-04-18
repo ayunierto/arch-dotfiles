@@ -33,3 +33,4 @@ export JAVA_HOME=/usr/lib/jvm/java-17-openjdk
 alias set-power-perf='sudo ryzenadj --stapm-limit=28000 --fast-limit=28000 --slow-limit=28000 --vrm-current=60000 --tctl-temp=85'
 alias set-power-extreme='sudo ryzenadj --stapm-limit=32000 --fast-limit=35000 --slow-limit=32000 --vrm-current=80000 --tctl-temp=90'
 alias set-power-eco='sudo ryzenadj --stapm-limit=6000 --fast-limit=8000 --slow-limit=6000 --tctl-temp=95'
+alias set-power-optimus-85='sudo ryzenadj --stapm-limit=32000 --fast-limit=34000 --slow-limit=32000 --tctl-temp=85 --vrm-current=70000 --apu-skin-temp=45'
