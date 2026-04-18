@@ -1,106 +1,86 @@
-# Dotfiles
+# Arch Dotfiles
 
-Configuración personal para entorno de desarrollo Arch enfocada en:
+Minimal and reproducible Arch Linux development environment focused on speed, low maintenance, and clean tooling.
 
-- Simplicidad
-- Reproducibilidad
-- Bajo mantenimiento
-- Buen rendimiento
+## Features
 
-## Preview
+- Modular installer architecture
+- Safe to run multiple times (idempotent)
+- Zsh + Oh My Zsh
+- Autosuggestions + Syntax Highlighting
+- Node.js via NVM
+- Docker + Compose
+- Hyprland-ready configs
+- Ryzen Thermal Guard
+- Automatic symlinks with backups
+- Pacman + AUR support (`yay`)
 
-Shell minimal con:
-- zsh + autosuggestions
-- syntax highlighting
-- tooling moderna (fzf, ripgrep, bat)
-
-Diseñado para Arch Linux.
-
-## Estructura
-
-```
-.dotfiles/
- ├── bin
- ├── config
- ├── install.sh
- ├── bootstrap.sh
- ├── .zshrc
- ├── .aliases
- ├── .exports
- └── .gitconfig
- ```
-
- ## Stack
-
-- Shell: zsh
-- Framework: oh-my-zsh
-- Plugins:
-  - zsh-autosuggestions
-  - zsh-syntax-highlighting
-- Node: nvm
-- Herramientas:
-  - fzf
-  - ripgrep
-  - bat
-
-## Philosophy
-
-- Reproducible setup (bootstrap + install scripts)
-- Minimal dependencies
-- Fast shell startup
-- No heavy theming or unnecessary plugins
-- WSL-first workflow
-
-## Supported Environments
-
-- Arch Linux
-
-Not tested on others distros.
-
-## Bootstrap Flow
-
-bootstrap.sh
-  → installs git (if missing)
-  → clones dotfiles repo
-  → executes install.sh
-
-install.sh
-  → installs system packages
-  → configures zsh + plugins
-  → installs nvm + Node
-  → links dotfiles
-  → links configs
-
-  ## Idempotency
-
-Scripts are safe to run multiple times.
-
-- Existing installations are detected
-- Config files are backed up if needed
-- No duplicate installations
-
----
-
-## Instalación rápida (bootstrap)
+## Quick Install
 
 ```bash
-bash -c "$(curl -fsSL https://raw.githubusercontent.com/ayunierto/wsl-ubuntu-dotfiles/main/bootstrap.sh)"
+bash -c "$(curl -fsSL https://raw.githubusercontent.com/ayunierto/arch-dotfiles/main/bootstrap.sh)"
 ```
 
-## Instalación manual
+## Manual Install
 ```bash
-git clone https://github.com/ayunierto/wsl-ubuntu-dotfiles.git ~/.dotfiles
+git clone https://github.com/ayunierto/arch-dotfiles.git ~/.dotfiles
 cd ~/.dotfiles
 chmod +x install.sh
 ./install.sh
 ```
+
+## Stack
+- Shell: Zsh
+- Framework: Oh My Zsh
+- Runtime: Node.js (NVM)
+- Containers: Docker
+- WM: Hyprland
+- Package Managers: Pacman + Yay
+
+## Structure
+```
+.dotfiles/
+├── install.sh
+├── bootstrap.sh
+├── modules/
+├── lib/
+├── config/
+├── bin/
+└── systemd/
+```
+
+## Principles
+- Reproducible setup
+- Fast shell startup
+- Minimal dependencies
+- Easy maintenance
+- Developer-first workflow
+- Supported System
+- Arch Linux
+
+## Notes
+
+Scripts are safe to re-run. Existing configs are backed up automatically when needed.
+
+## Useful Commands
+```bash
+# Git credentials
+git config --global credential.helper store
+```
+
+# Install pnpm
+```bash
+npm i -g pnpm
+```
+
+## License
+MIT
 
 ## Otras instalaciones
 1. Docker 
 ```bash
 sudo pacman -S docker  docker-compose
 ```
-
 [Post install](https://docs.docker.com/engine/install/linux-postinstall)
 
 
@@ -110,7 +90,3 @@ sudo pacman -S docker  docker-compose
 ```bash
 # Guardar credeciales de git
 git config --global credential.helper store
-
-# Install pnpm 
-npm i -g pnpm 
-```
