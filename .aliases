@@ -19,3 +19,8 @@ alias stop-docker="sudo systemctl stop docker.service"
 
 # System
 alias reload='source ~/.zshrc'
+
+
+# Kitty
+alias icat='kitten icat'
+alias explorer='kitten choose-files'

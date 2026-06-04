@@ -8,4 +8,4 @@ aur_install \
   ttf-nerd-fonts-symbols \
   ttf-nerd-fonts-symbols-mono \
   ttf-nerd-fonts-symbols-common \
-  ryzenadj
+  ttf-google-sans-code-vf ryzenadj
