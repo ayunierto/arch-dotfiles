@@ -1,6 +1,6 @@
 # Arch Dotfiles
 
-Entorno de desarrollo reproducible para Arch Linux: instalador bash modular, configs de Hyprland/Waybar/Kitty/Rofi/Wofi/SwayNC y un guard térmico para Ryzen.
+Entorno de desarrollo reproducible para Arch Linux: instalador bash modular y configs de Hyprland/Waybar/Kitty/Rofi/Wofi/SwayNC, con extras opcionales.
 
 ## Instalación rápida
 
@@ -25,11 +25,11 @@ Requiere Arch Linux y `sudo`. Es idempotente: los archivos existentes se respald
 ├── bootstrap.sh      # clona el repo y lanza install.sh (solo Arch)
 ├── install.sh        # carga lib/ y ejecuta modules/ en orden
 ├── lib/              # helpers (pacman, AUR, symlinks, systemd, logs)
-├── modules/          # pasos del instalador (00..90)
+├── modules/          # pasos del instalador (10..90)
 ├── config/           # hypr, kitty, rofi, swaync, waybar, wofi
-├── bin/              # reload-waybar, reload-swaync, thermal-guard.sh
-├── systemd/          # thermal-guard.service (usuario)
-└── docs/             # guías adicionales
+├── bin/              # reload-waybar, reload-swaync
+├── docs/             # guías adicionales
+└── extras/           # extras opcionales (no los instala install.sh)
 ```
 
 ## Módulos del instalador
@@ -41,7 +41,6 @@ Se ejecutan al hacer `source`, en orden numérico:
 - `30-zsh.sh` — Oh My Zsh + plugins
 - `40-node.sh` — NVM + Node LTS
 - `50-dotfiles.sh` — symlinks de configs
-- `60-thermal.sh` — Thermal Guard (sudoers + servicio)
 - `70-docker.sh` — Docker + grupo
 - `90-finish.sh` — ajustes finales
 
@@ -49,9 +48,11 @@ Se ejecutan al hacer `source`, en orden numérico:
 
 `~/.zshrc`, `~/.aliases`, `~/.exports`, `~/.gitconfig` y `~/.config/{hypr,kitty,rofi,swaync,waybar,wofi}` son symlinks a este repo. Edita aquí, no las copias enlazadas.
 
-## Thermal Guard
+## Extras opcionales
 
-Servicio de usuario que ajusta los límites de `ryzenadj` según la temperatura (modos TURBO/CONSERVATIVE). Usa un drop-in NOPASSWD en `/etc/sudoers.d/90-ryzenadj`.
+No forman parte de `install.sh`; se instalan aparte porque son específicos de un perfil concreto:
+
+- **Thermal Guard** (`extras/thermal-guard/`): ajuste automático de potencia en AMD Ryzen por temperatura. Instrucciones en `extras/thermal-guard/README.md`.
 
 ## Documentación
 

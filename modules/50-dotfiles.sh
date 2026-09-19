@@ -18,9 +18,7 @@ mkdir -p "$HOME/.local/bin"
 
 link_file "$DOTFILES_DIR/bin/reload-swaync" "$HOME/.local/bin/reload-swaync"
 link_file "$DOTFILES_DIR/bin/reload-waybar" "$HOME/.local/bin/reload-waybar"
-link_file "$DOTFILES_DIR/bin/thermal-guard.sh" "$HOME/.local/bin/thermal-guard.sh"
 
 chmod +x \
   "$HOME/.local/bin/reload-swaync" \
-  "$HOME/.local/bin/reload-waybar" \
-  "$HOME/.local/bin/thermal-guard.sh"
+  "$HOME/.local/bin/reload-waybar"

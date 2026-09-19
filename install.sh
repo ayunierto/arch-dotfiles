@@ -9,7 +9,6 @@ source "$DOTFILES_DIR/lib/logger.sh"
 source "$DOTFILES_DIR/lib/checks.sh"
 source "$DOTFILES_DIR/lib/package-manager.sh"
 source "$DOTFILES_DIR/lib/symlink.sh"
-source "$DOTFILES_DIR/lib/systemd.sh"
 
 main() {
   preflight_checks
