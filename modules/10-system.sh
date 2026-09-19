@@ -8,7 +8,7 @@ pkg_install \
   zsh git curl unzip base-devel \
   fzf ripgrep bat lsd ca-certificates libnotify \
   github-cli hyprpaper hypridle hyprlock \
-  waybar swaync wofi rofi kitty \
+  waybar swaync wofi rofi kitty swayosd \
   grim slurp brightnessctl playerctl wmctrl \
   wireplumber pavucontrol \
   network-manager-applet blueman \

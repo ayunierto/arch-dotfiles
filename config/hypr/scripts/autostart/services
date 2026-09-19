@@ -9,6 +9,9 @@ waybar &
 # Notification Daemon
 swaync &
 
+# OSD (brillo/volumen en pantalla)
+swayosd-server &
+
 # Idle daemon to screen lock
 hypridle &
 

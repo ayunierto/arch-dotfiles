@@ -1,0 +1,44 @@
+/* SwayOSD - Tema Catppuccin Mocha (acorde a theme.css de waybar) */
+window#osd {
+  border-radius: 999px;
+  border: none;
+  background: rgba(30, 30, 46, 0.85); /* Catppuccin Base */
+}
+
+window#osd #container {
+  margin: 16px;
+}
+
+window#osd image,
+window#osd label {
+  color: #cdd6f4; /* Catppuccin Text */
+}
+
+window#osd progressbar:disabled,
+window#osd image:disabled {
+  opacity: 0.5;
+}
+
+window#osd progressbar,
+window#osd segmentedprogress {
+  min-height: 6px;
+  border-radius: 999px;
+  background: transparent;
+  border: none;
+}
+
+window#osd trough,
+window#osd segment {
+  min-height: inherit;
+  border-radius: inherit;
+  border: none;
+  background: rgba(108, 112, 134, 0.5); /* Catppuccin Overlay0 */
+}
+
+window#osd progress,
+window#osd segment.active {
+  min-height: inherit;
+  border-radius: inherit;
+  border: none;
+  background: #89b4fa; /* Catppuccin Blue (acento primario) */
+}
