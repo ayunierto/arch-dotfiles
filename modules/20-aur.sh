@@ -6,9 +6,7 @@ aur_install \
   maplemono-nf-unhinted \
   hyprshutdown \
   ttf-nerd-fonts-symbols \
-  ttf-nerd-fonts-symbols-mono \
   ttf-nerd-fonts-symbols-common \
-  ttf-google-sans-code-vf \
   ttf-geist-mono \
   visual-studio-code-bin \
   ryzenadj

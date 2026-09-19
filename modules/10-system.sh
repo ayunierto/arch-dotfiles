@@ -17,4 +17,4 @@ pkg_install \
   dolphin chromium zed \
   lm_sensors fish \
   noto-fonts-cjk noto-fonts-emoji ttf-jetbrains-mono-nerd \
-  woff2-font-awesome
+  adwaita-fonts
