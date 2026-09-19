@@ -8,7 +8,7 @@
   // {
   //   "reload_style_on_change": true,
   //   "toggle": true,
-  //   "include": "~/.config/waybar/bars/vertical-bar.jsonc",
+  //   "include": "~/.config/waybar/bars/left/vertical-bar.jsonc",
   //   "layer": "top"
   // }
 ]

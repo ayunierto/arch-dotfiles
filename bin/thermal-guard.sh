@@ -19,6 +19,8 @@ readonly MODE_CONSERVATIVE="CONSERVATIVE"
 
 readonly LOG_TAG="thermal-guard"
 
+readonly RYZENADJ_BIN="$(command -v ryzenadj || echo /usr/bin/ryzenadj)"
+
 # --------------- LOGGING ----------------
 log() {
     logger -t "$LOG_TAG" "$1"
@@ -44,7 +46,7 @@ apply_profile() {
 
     case "$mode" in
         "$MODE_TURBO")
-            sudo -n /usr/bin/ryzenadj \
+            sudo -n "$RYZENADJ_BIN" \
                 --stapm-limit=32000 \
                 --fast-limit=34000 \
                 --slow-limit=32000 \
@@ -54,7 +56,7 @@ apply_profile() {
                 >/dev/null 2>&1
             ;;
         "$MODE_CONSERVATIVE")
-            sudo -n /usr/bin/ryzenadj \
+            sudo -n "$RYZENADJ_BIN" \
                 --stapm-limit=25000 \
                 --fast-limit=25000 \
                 --slow-limit=25000 \

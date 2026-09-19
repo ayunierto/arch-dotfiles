@@ -1,0 +1,10 @@
+# Respaldos generados por link_file / bootstrap
+*.bak
+*.bak.*
+*.orig
+*~
+
+# Temporales
+*.tmp
+*.log
+.DS_Store

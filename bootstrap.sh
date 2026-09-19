@@ -76,6 +76,12 @@ clone_repo() {
 update_repo() {
   log "Actualizando repositorio existente"
 
+  if ! git -C "${TARGET_DIR}" diff --quiet || \
+     ! git -C "${TARGET_DIR}" diff --cached --quiet; then
+    warn "Hay cambios locales en ${TARGET_DIR}; se omite la actualización"
+    return
+  fi
+
   git -C "${TARGET_DIR}" fetch origin
   git -C "${TARGET_DIR}" pull --ff-only || \
     fail "No se pudo actualizar. Revisa cambios locales en ${TARGET_DIR}"

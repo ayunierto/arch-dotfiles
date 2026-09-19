@@ -1,92 +1,62 @@
 # Arch Dotfiles
 
-Minimal and reproducible Arch Linux development environment focused on speed, low maintenance, and clean tooling.
+Entorno de desarrollo reproducible para Arch Linux: instalador bash modular, configs de Hyprland/Waybar/Kitty/Rofi/Wofi/SwayNC y un guard térmico para Ryzen.
 
-## Features
-
-- Modular installer architecture
-- Safe to run multiple times (idempotent)
-- Zsh + Oh My Zsh
-- Autosuggestions + Syntax Highlighting
-- Node.js via NVM
-- Docker + Compose
-- Hyprland-ready configs
-- Ryzen Thermal Guard
-- Automatic symlinks with backups
-- Pacman + AUR support (`yay`)
-
-## Quick Install
+## Instalación rápida
 
 ```bash
 bash -c "$(curl -fsSL https://raw.githubusercontent.com/ayunierto/arch-dotfiles/main/bootstrap.sh)"
 ```
 
-## Manual Install
+## Instalación manual
+
 ```bash
 git clone https://github.com/ayunierto/arch-dotfiles.git ~/.dotfiles
 cd ~/.dotfiles
-chmod +x install.sh
 ./install.sh
 ```
 
-## Stack
-- Shell: Zsh
-- Framework: Oh My Zsh
-- Runtime: Node.js (NVM)
-- Containers: Docker
-- WM: Hyprland
-- Package Managers: Pacman + Yay
+Requiere Arch Linux y `sudo`. Es idempotente: los archivos existentes se respaldan como `<archivo>.bak.<epoch>` antes de reemplazarse por symlinks.
 
-## Structure
+## Estructura
+
 ```
 .dotfiles/
-├── install.sh
-├── bootstrap.sh
-├── modules/
-├── lib/
-├── config/
-├── bin/
-└── systemd/
+├── bootstrap.sh      # clona el repo y lanza install.sh (solo Arch)
+├── install.sh        # carga lib/ y ejecuta modules/ en orden
+├── lib/              # helpers (pacman, AUR, symlinks, systemd, logs)
+├── modules/          # pasos del instalador (00..90)
+├── config/           # hypr, kitty, rofi, swaync, waybar, wofi
+├── bin/              # reload-waybar, reload-swaync, thermal-guard.sh
+├── systemd/          # thermal-guard.service (usuario)
+└── docs/             # guías adicionales
 ```
 
-## Principles
-- Reproducible setup
-- Fast shell startup
-- Minimal dependencies
-- Easy maintenance
-- Developer-first workflow
-- Supported System
-- Arch Linux
+## Módulos del instalador
 
-## Notes
+Se ejecutan al hacer `source`, en orden numérico:
 
-Scripts are safe to re-run. Existing configs are backed up automatically when needed.
+- `10-system.sh` — paquetes base vía `pacman`
+- `20-aur.sh` — paquetes AUR vía `yay`
+- `30-zsh.sh` — Oh My Zsh + plugins
+- `40-node.sh` — NVM + Node LTS
+- `50-dotfiles.sh` — symlinks de configs
+- `60-thermal.sh` — Thermal Guard (sudoers + servicio)
+- `70-docker.sh` — Docker + grupo
+- `90-finish.sh` — ajustes finales
 
-## Useful Commands
-```bash
-# Git credentials
-git config --global credential.helper store
-```
+## Configs
 
-# Install pnpm
-```bash
-npm i -g pnpm
-```
+`~/.zshrc`, `~/.aliases`, `~/.exports`, `~/.gitconfig` y `~/.config/{hypr,kitty,rofi,swaync,waybar,wofi}` son symlinks a este repo. Edita aquí, no las copias enlazadas.
 
-## License
-MIT
+## Thermal Guard
 
-## Otras instalaciones
-1. Docker 
-```bash
-sudo pacman -S docker  docker-compose
-```
-[Post install](https://docs.docker.com/engine/install/linux-postinstall)
+Servicio de usuario que ajusta los límites de `ryzenadj` según la temperatura (modos TURBO/CONSERVATIVE). Usa un drop-in NOPASSWD en `/etc/sudoers.d/90-ryzenadj`.
 
+## Documentación
 
-2. [Cloudflare Tunnel](https://developers.cloudflare.com/cloudflare-one/networks/connectors/cloudflare-tunnel/do-more-with-tunnels/local-management/create-local-tunnel/#1-download-and-install-cloudflared). 
+- `docs/COMMAND_LINE_TOOLS.md`: Android SDK Command Line Tools para Expo / React Native.
 
-## Comandos utiles
-```bash
-# Guardar credeciales de git
-git config --global credential.helper store
+## Licencia
+
+MIT, ver `LICENSE`.

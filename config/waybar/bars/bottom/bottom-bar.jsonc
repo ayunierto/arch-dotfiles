@@ -8,19 +8,11 @@
   "include": [
     "~/.config/waybar/modules/cpu.jsonc",
     "~/.config/waybar/modules/memory.jsonc",
-    "~/.config/waybar/modules/custom-gpu-usage.jsonc",
-    "~/.config/waybar/modules/temperature-gpu.jsonc",
-    "~/.config/waybar/modules/temperature-cpu.jsonc",
+    "~/.config/waybar/modules/disk.jsonc",
+    "~/.config/waybar/modules/temperature.jsonc",
     "~/.config/waybar/modules/hyprland-workspaces.jsonc",
     "~/.config/waybar/modules/clock.jsonc"
   ],
   "modules-left": ["hyprland/workspaces"],
-  "modules-right": [
-    "memory",
-    "cpu",
-    "temperature#cpu",
-    "custom/gpu-usage",
-    "temperature#gpu",
-    "clock#cl2"
-  ]
+  "modules-right": ["memory", "cpu", "disk", "temperature", "clock"]
 }

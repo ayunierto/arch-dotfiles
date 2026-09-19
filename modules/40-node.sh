@@ -2,9 +2,12 @@
 
 log "Configurando Node"
 
-export NVM_DIR="$HOME/.config/nvm"
-
-if [[ ! -d "$NVM_DIR" ]]; then
+if [[ -s "$HOME/.config/nvm/nvm.sh" ]]; then
+  export NVM_DIR="$HOME/.config/nvm"
+elif [[ -s "$HOME/.nvm/nvm.sh" ]]; then
+  export NVM_DIR="$HOME/.nvm"
+else
+  export NVM_DIR="$HOME/.config/nvm"
   curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.4/install.sh | PROFILE=/dev/null bash
 fi
 

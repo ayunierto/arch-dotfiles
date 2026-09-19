@@ -1,6 +1,5 @@
 {
   "network": {
-    "interface": "enp3s0f3u2",
     "format": "{ifname}",
     "format-wifi": "{essid}  ",
     "format-ethernet": "{ipaddr}/{cidr}  󰊗 ",

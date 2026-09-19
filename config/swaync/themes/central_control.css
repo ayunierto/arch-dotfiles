@@ -156,7 +156,7 @@ progressbar {
 }
 
 .notification-group-collapse-button:hover,
-.notification-group-c lose-all-button:hover {
+.notification-group-close-all-button:hover {
   background: @accent;
   color: @accentForeground;
 }

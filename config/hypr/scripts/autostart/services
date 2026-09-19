@@ -1,8 +1,5 @@
 #!/bin/bash
 
-# Wallpaper engine
-swww-daemon --format argb &
-
 # Automounter for removable media
 # udiskie &
 

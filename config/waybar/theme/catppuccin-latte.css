@@ -26,6 +26,8 @@
 @define-color Crust               #dce0e8;
 
 @define-color background              @Base;
+@define-color backgroundSecondary     @Mantle;
+@define-color backgroundTertiary      @Crust;
 @define-color foreground              @Text;
 
 @define-color card                    @Surface0;

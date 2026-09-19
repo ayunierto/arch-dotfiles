@@ -1,3 +1,2 @@
 export EDITOR=code
 export PATH="$HOME/.local/bin:$PATH"
-export NODE_ENV=development

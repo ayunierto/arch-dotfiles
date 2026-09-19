@@ -1,5 +1,5 @@
 /* @import '../waybar/theme/theme.css'; */
-@import url('/home/neo/.config/waybar/theme/theme.css');
+@import url('../waybar/theme/theme.css');
 
 * {
   font-family: 'JetBrainsMono NF', Roboto, Helvetica, Arial, sans-serif;

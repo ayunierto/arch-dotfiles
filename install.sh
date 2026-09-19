@@ -2,7 +2,8 @@
 # shellcheck disable=SC1090
 set -euo pipefail
 
-export DOTFILES_DIR="${HOME}/.dotfiles"
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+export DOTFILES_DIR="${SCRIPT_DIR}"
 
 source "$DOTFILES_DIR/lib/logger.sh"
 source "$DOTFILES_DIR/lib/checks.sh"
