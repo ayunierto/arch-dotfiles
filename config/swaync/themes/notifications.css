@@ -9,7 +9,9 @@
 
   all: unset;
   font-size: 14px;
-  font-family: 'JetBrainsMono NF';
+  font-family:
+    "Maple Mono NF", "JetBrainsMono Nerd Font", "Symbols Nerd Font",
+    "Noto Color Emoji", "Noto Sans", sans-serif;
   transition: all 0.3s ease-in-out;
 }
 

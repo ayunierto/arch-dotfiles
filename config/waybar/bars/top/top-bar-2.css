@@ -3,7 +3,6 @@
     border-radius: 0;
     padding: 0;
     margin: 0;
-    font-family: "Adwaita Sans", Roboto, sans-serif;
     min-height: 0px;
     min-width: 0px;
 }
@@ -11,9 +10,6 @@
 window#waybar {
     background: transparent;
     border: none;
-    font-family:
-        "Adwaita Sans Regular", "Maple Mono NF",
-        "JetBrainsMono Nerd Font Propo", Roboto, sans-serif;
     color: @foreground;
 }
 
@@ -56,12 +52,6 @@ tooltip label {
 
 #cpu {
     min-width: 50px;
-}
-
-#custom-weather {
-    font-family:
-        "Maple Mono NF", "JetBrainsMono Nerd Font Propo", "Symbols Nerd Font",
-        "Noto Color Emoji", Roboto, "Noto Sans", sans-serif;
 }
 
 /* #workspaces {

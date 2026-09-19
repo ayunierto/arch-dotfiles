@@ -3,7 +3,6 @@
   border-radius: 0;
   padding: 0;
   margin: 0;
-  font-family: 'Maple Mono NF', 'JetBrainsMono NF', Roboto, sans-serif;
   min-height: 0px;
   min-width: 0px;
 }
@@ -11,7 +10,6 @@
 window#waybar {
   background: transparent;
   border: none;
-  font-family: 'Maple Mono NF', 'JetBrainsMono NF', Roboto, sans-serif;
   color: @foreground;
 }
 
