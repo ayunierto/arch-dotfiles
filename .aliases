@@ -11,6 +11,7 @@ alias gp='git push'
 
 # Dev
 alias dev='pnpm dev'
+alias op='opencode'
 alias edc='npx expo start -c --dev-client'
 
 # Docker
