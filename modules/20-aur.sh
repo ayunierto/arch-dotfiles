@@ -9,4 +9,5 @@ aur_install \
   ttf-nerd-fonts-symbols-common \
   ttf-geist-mono \
   visual-studio-code-bin \
+  wofi-emoji \
   ryzenadj

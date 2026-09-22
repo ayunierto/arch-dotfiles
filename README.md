@@ -52,6 +52,10 @@ Se ejecutan al hacer `source`, en orden numérico:
 
 La barra activa es `config/waybar/bars/top/top-bar-2.jsonc`. Incluye un módulo **DeepSeek** (`config/waybar/modules/custom-deepseek.jsonc`) que muestra con un icono de color si la API está en horario **peak** (tarifa completa) u **off-peak** (50% de descuento), evaluado en UTC; un script (`config/waybar/scripts/deepseek-peak.sh watch`) avisa con `notify-send` al cambiar de tarifa. Detalles en `config/waybar/README.md`.
 
+### Emojis (wofi-emoji)
+
+Selector de emojis integrado con el lanzador wofi. Se abre con `SUPER + .` (`config/hypr/modules/keybinds.conf`) y, al pulsar `Enter`, teclea el emoji directamente en el campo enfocado vía `wtype` (o lo copia al portapapeles con `wl-copy`). Dependencias: `wofi`, `wl-clipboard`, `wtype` (`modules/10-system.sh`) y `wofi-emoji` desde AUR (`modules/20-aur.sh`). El renderizado usa `noto-fonts-emoji`.
+
 ## Extras opcionales
 
 No forman parte de `install.sh`; se instalan aparte porque son específicos de un perfil concreto:

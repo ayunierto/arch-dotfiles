@@ -9,7 +9,7 @@ pkg_install \
   fzf ripgrep bat lsd ca-certificates libnotify \
   github-cli hyprpaper hypridle hyprlock \
   waybar swaync wofi rofi kitty swayosd \
-  grim slurp brightnessctl playerctl wmctrl \
+  grim slurp wl-clipboard wtype brightnessctl playerctl wmctrl \
   wireplumber pavucontrol \
   network-manager-applet blueman \
   nwg-look papirus-icon-theme gnome-themes-extra \
