@@ -29,7 +29,7 @@ Indica en un vistazo si DeepSeek cobra tarifa completa o el **50% de descuento**
 - **Peak (caro):** `01:00–04:00` y `06:00–10:00` **UTC**, lunes a viernes.
 - **Off-peak (mitad de precio):** todo lo demás, incluidos fines de semana completos.
 
-> La evaluación se hace en **UTC**, no en hora local: en Perú (UTC-5) los bordes de día no calzan con un simple "lun–vie". Por eso el cálculo lo hace el script con `date -u`, no el `.jsonc`. Los feriados públicos chinos (en los que nunca hay peak) se ignoran.
+> La evaluación se hace en **UTC**, no en hora local: en Perú (UTC-5) los bordes de día no calzan con un simple "lun–vie". Por eso el cálculo lo hace el script con aritmética sobre el epoch (sin `date -u`), no el `.jsonc`. Los feriados públicos chinos (en los que nunca hay peak) se ignoran.
 
 ### Componentes
 
