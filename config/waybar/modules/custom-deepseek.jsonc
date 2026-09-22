@@ -4,6 +4,7 @@
     "return-type": "json",
     "format": "{}",
     "tooltip": true,
-    "interval": 300
+    "interval": 300,
+    "signal": 3
   }
 }

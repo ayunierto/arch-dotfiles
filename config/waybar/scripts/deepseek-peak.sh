@@ -88,6 +88,9 @@ watch() {
         notify-send -a "DeepSeek" -u normal -i "weather-clear" "DeepSeek: 50% de descuento" \
           "Horario off-peak hasta ~$next_fmt (en $dur). Buen momento para darle uso o el modelo pro." || true
       fi
+
+      # Refrescar el icono de waybar al instante (SIGRTMIN+3 del módulo custom/deepseek)
+      pkill -RTMIN+3 -x waybar || true
     fi
 
     prev=$state

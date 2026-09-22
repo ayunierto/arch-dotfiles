@@ -33,10 +33,10 @@ Indica en un vistazo si DeepSeek cobra tarifa completa o el **50% de descuento**
 
 ### Componentes
 
-- `modules/custom-deepseek.jsonc` — módulo `custom/deepseek` con `return-type: json` e `interval: 300`.
+- `modules/custom-deepseek.jsonc` — módulo `custom/deepseek` con `return-type: json`, `interval: 300` y `signal: 3` (SIGRTMIN+3).
 - `scripts/deepseek-peak.sh` — lógica compartida, dos modos:
   - `status` — imprime el JSON para waybar (`text`, `class`, `tooltip` con la próxima transición en hora local).
-  - `watch` — bucle que lanza `notify-send` cuando cambia la tarifa (se arranca desde `config/hypr/scripts/autostart/services`).
+  - `watch` — bucle que lanza `notify-send` cuando cambia la tarifa (se arranca desde `config/hypr/scripts/autostart/services`) y además dispara `pkill -RTMIN+3 -x waybar` para que el icono se refresque en el mismo instante.
 - `bars/top/top-bar-2.css` — estilos: `.offpeak` → `@Teal`, `.peak` → `@warning`. Iconos: `󰁅` (precio baja) y `󰁔` (precio sube).
 
 ### Horario local (Perú, UTC-5)
