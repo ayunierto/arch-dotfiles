@@ -6,7 +6,7 @@ pkg_update
 
 pkg_install \
   zsh git curl unzip base-devel \
-  fzf ripgrep bat lsd ca-certificates libnotify \
+  fzf ripgrep bat lsd jq ca-certificates libnotify \
   github-cli hyprpaper hypridle hyprlock \
   waybar swaync wofi kitty swayosd \
   grim slurp wl-clipboard wtype brightnessctl playerctl wmctrl \
