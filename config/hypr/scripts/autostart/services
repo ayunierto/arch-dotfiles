@@ -9,6 +9,9 @@ waybar &
 # Notification Daemon
 swaync &
 
+# DeepSeek peak/off-peak notifications
+"$HOME"/.config/waybar/scripts/deepseek-peak.sh watch &
+
 # OSD (brillo/volumen en pantalla)
 swayosd-server &
 

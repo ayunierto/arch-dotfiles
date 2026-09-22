@@ -20,7 +20,7 @@ Dotfiles personales de Arch Linux + un instalador bash modular. Sin código de a
 ## Trampas
 
 - Evita rutas absolutas con home hardcodeado en los configs (`/home/<usuario>/...`): usa `$HOME`/`~`, o rutas relativas si el formato no expande tilde (ej. `config/hypr/hyprlock.conf` usa `$HOME`, `config/wofi/style.css` usa `../waybar/...`).
-- `config/waybar/README.md` documenta un esquema viejo con `profiles/` + `activate-waybar.sh` que ya no existe. El esquema real es `bars/`, `modules/`, `theme/`; la barra activa se elige con el `include` de `config/waybar/config.jsonc` y el `@import` de `style.css`.
+- `config/waybar/README.md` documenta el esquema real `bars/`, `modules/`, `theme/`; la barra activa se elige con el `include` de `config/waybar/config.jsonc` y el `@import` de `style.css`. El módulo `custom/deepseek` evalúa la tarifa de la API de DeepSeek en **UTC** (no hora local): los horarios peak (`01:00–04:00` y `06:00–10:00` UTC lun–vie, feriados chinos ignorados) se definen en UTC, así que el script usa `date -u`; su notificador `deepseek-peak.sh watch` se arranca desde `config/hypr/scripts/autostart/services`.
 - Thermal Guard vive en `extras/thermal-guard/` (`install.sh`, `thermal-guard.sh`, `thermal-guard.service`, `README.md`) y es opcional: requiere AMD Ryzen. Crea un drop-in NOPASSWD en `/etc/sudoers.d/90-ryzenadj` y un servicio systemd de usuario. Resuelve `ryzenadj` con `command -v` (`$RYZENADJ_BIN`); no asumas `/usr/bin/ryzenadj`. El paquete `ryzenadj` sí se instala desde `modules/20-aur.sh` porque los aliases `set-power-*` de `.zshrc` lo usan.
 - NVM: el instalador reutiliza `~/.config/nvm` o `~/.nvm` (el que exista) con `PROFILE=/dev/null`; `.zshrc` carga el que esté presente.
 

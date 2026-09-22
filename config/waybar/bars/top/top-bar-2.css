@@ -28,6 +28,7 @@ tooltip label {
 #memory,
 #cpu,
 #disk,
+#custom-deepseek,
 #backlight,
 #temperature,
 #pulseaudio,
@@ -192,6 +193,14 @@ menuseparator {
 #network {
     /* min-width: 80px; */
     color: @Teal;
+}
+
+#custom-deepseek.offpeak {
+    color: @Teal;
+}
+
+#custom-deepseek.peak {
+    color: @warning;
 }
 
 @keyframes blink-warning {

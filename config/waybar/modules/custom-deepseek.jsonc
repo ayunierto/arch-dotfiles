@@ -1,0 +1,9 @@
+{
+  "custom/deepseek": {
+    "exec": "${HOME}/.config/waybar/scripts/deepseek-peak.sh status",
+    "return-type": "json",
+    "format": "{}",
+    "tooltip": true,
+    "interval": 300
+  }
+}
