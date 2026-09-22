@@ -1,6 +1,6 @@
 # Arch Dotfiles
 
-Entorno de desarrollo reproducible para Arch Linux: instalador bash modular y configs de Hyprland/Waybar/Kitty/Rofi/Wofi/SwayNC, con extras opcionales.
+Entorno de desarrollo reproducible para Arch Linux: instalador bash modular y configs de Hyprland/Waybar/Kitty/Wofi/SwayNC, con extras opcionales.
 
 ## Instalación rápida
 
@@ -26,7 +26,7 @@ Requiere Arch Linux y `sudo`. Es idempotente: los archivos existentes se respald
 ├── install.sh        # carga lib/ y ejecuta modules/ en orden
 ├── lib/              # helpers (pacman, AUR, symlinks, systemd, logs)
 ├── modules/          # pasos del instalador (10..90)
-├── config/           # hypr, kitty, rofi, swaync, waybar, wofi
+├── config/           # gtk, hypr, kitty, swaync, swayosd, waybar, wofi
 ├── bin/              # reload-waybar, reload-swaync
 ├── docs/             # guías adicionales
 └── extras/           # extras opcionales (no los instala install.sh)
@@ -40,13 +40,22 @@ Se ejecutan al hacer `source`, en orden numérico:
 - `20-aur.sh` — paquetes AUR vía `yay`
 - `30-zsh.sh` — Oh My Zsh + plugins
 - `40-node.sh` — NVM + Node LTS
+- `45-gtk.sh` — tema GTK y cursor vía gsettings (libadwaita/GTK4)
 - `50-dotfiles.sh` — symlinks de configs
 - `70-docker.sh` — Docker + grupo
 - `90-finish.sh` — ajustes finales
 
 ## Configs
 
-`~/.zshrc`, `~/.aliases`, `~/.exports`, `~/.gitconfig` y `~/.config/{hypr,kitty,rofi,swaync,waybar,wofi}` son symlinks a este repo. Edita aquí, no las copias enlazadas.
+`~/.zshrc`, `~/.aliases`, `~/.exports`, `~/.gitconfig` y `~/.config/{gtk-3.0,gtk-4.0,hypr,kitty,swaync,swayosd,waybar,wofi}` son symlinks a este repo. Edita aquí, no las copias enlazadas.
+
+### Tema
+
+Los colores se definen por capas, todas versionadas en este repo:
+
+- **waybar, swaync y swayosd** leen `config/waybar/theme/theme.css` vía `@import '../waybar/theme/theme.css'`. Ese archivo importa la paleta activa (`catppuccin-mocha.css` o `catppuccin-latte.css`) — cambiarlo migra el tema de los tres a la vez.
+- **Apps GTK** (Dolphin, diálogos GTK, etc.) usan una plantilla Catppuccin Mocha instalada desde AUR (`catppuccin-gtk-theme-mocha`, variante `catppuccin-mocha-blue-standard+default`) más cursores `catppuccin-cursors-mocha`. El tema, fuente, iconos (`Papirus-Dark`) y cursor se aplican en `config/gtk/gtk-3.0/settings.ini` y `config/gtk/gtk-4.0/settings.ini` (symlinks) y, para los apps libadwaita/GTK4 que solo leen dconf, en `modules/45-gtk.sh` vía `gsettings`. El nombre del tema debe coincidir con la carpeta en `/usr/share/themes` (el de AUR va en minúsculas, `+` incluido).
+- **kitty** (`config/kitty/current-theme.conf`) e **hypr** (`config/hypr/theme/theme.conf`, que `hyprlock.conf` hace `source`) usan formatos propios.
 
 ### Waybar
 

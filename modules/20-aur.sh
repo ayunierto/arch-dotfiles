@@ -10,4 +10,6 @@ aur_install \
   ttf-geist-mono \
   visual-studio-code-bin \
   wofi-emoji \
-  ryzenadj
+  ryzenadj \
+  catppuccin-gtk-theme-mocha \
+  catppuccin-cursors-mocha
