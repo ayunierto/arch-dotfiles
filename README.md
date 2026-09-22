@@ -26,7 +26,7 @@ Requiere Arch Linux y `sudo`. Es idempotente: los archivos existentes se respald
 ├── install.sh        # carga lib/ y ejecuta modules/ en orden
 ├── lib/              # helpers (pacman, AUR, symlinks, systemd, logs)
 ├── modules/          # pasos del instalador (10..90)
-├── config/           # gtk, hypr, kitty, swaync, swayosd, waybar, wofi
+├── config/           # gtk, hypr, kitty, opencode, swaync, swayosd, waybar, wofi
 ├── bin/              # reload-waybar, reload-swaync
 ├── docs/             # guías adicionales
 └── extras/           # extras opcionales (no los instala install.sh)
@@ -47,7 +47,7 @@ Se ejecutan al hacer `source`, en orden numérico:
 
 ## Configs
 
-`~/.zshrc`, `~/.aliases`, `~/.exports`, `~/.gitconfig` y `~/.config/{gtk-3.0,gtk-4.0,hypr,kitty,swaync,swayosd,waybar,wofi}` son symlinks a este repo. Edita aquí, no las copias enlazadas.
+`~/.zshrc`, `~/.aliases`, `~/.exports`, `~/.gitconfig`, los temas de opencode (`~/.config/opencode/themes`) y `~/.config/{gtk-3.0,gtk-4.0,hypr,kitty,swaync,swayosd,waybar,wofi}` son symlinks a este repo. Edita aquí, no las copias enlazadas.
 
 ### Tema
 
@@ -55,6 +55,7 @@ Los colores se definen por capas, todas versionadas en este repo:
 
 - **waybar, swaync y swayosd** leen `config/waybar/theme/theme.css` vía `@import '../waybar/theme/theme.css'`. Ese archivo importa la paleta activa (`catppuccin-mocha.css` o `catppuccin-latte.css`) — cambiarlo migra el tema de los tres a la vez.
 - **Apps GTK** (Dolphin, diálogos GTK, etc.) usan una plantilla Catppuccin Mocha instalada desde AUR (`catppuccin-gtk-theme-mocha`, variante `catppuccin-mocha-blue-standard+default`) más cursores `catppuccin-cursors-mocha`. El tema, fuente, iconos (`Papirus-Dark`) y cursor se aplican en `config/gtk/gtk-3.0/settings.ini` y `config/gtk/gtk-4.0/settings.ini` (symlinks) y, para los apps libadwaita/GTK4 que solo leen dconf, en `modules/45-gtk.sh` vía `gsettings`. El nombre del tema debe coincidir con la carpeta en `/usr/share/themes` (el de AUR va en minúsculas, `+` incluido).
+- **opencode** tiene su tema `config/opencode/themes/catppuccin-mocha-blue.json` (symlink en `~/.config/opencode/themes`), definido para coincidir con la paleta Catppuccin del resto.
 - **kitty** (`config/kitty/current-theme.conf`) e **hypr** (`config/hypr/theme/theme.conf`, que `hyprlock.conf` hace `source`) usan formatos propios.
 
 ### Waybar

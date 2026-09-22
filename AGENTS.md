@@ -14,7 +14,7 @@ Dotfiles personales de Arch Linux + un instalador bash modular. Sin código de a
 
 - Toda la salida de scripts, comentarios y docs está en **español** - mantén eso al añadir mensajes.
 - Todo es idempotente/re-ejecutable; ejecutar `./install.sh` necesita `sudo` (pacman) y solo funciona en Arch.
-- El repo es la fuente de verdad: `~/.zshrc`, `~/.aliases`, `~/.exports`, `~/.gitconfig` y todo lo de `~/.config/{gtk-3.0,gtk-4.0,hypr,kitty,swaync,swayosd,waybar,wofi}` son symlinks hacia este repo. Edita los archivos aquí, no las copias enlazadas.
+- El repo es la fuente de verdad: `~/.zshrc`, `~/.aliases`, `~/.exports`, `~/.gitconfig`, los temas de opencode (`~/.config/opencode/themes`) y todo lo de `~/.config/{gtk-3.0,gtk-4.0,hypr,kitty,swaync,swayosd,waybar,wofi}` son symlinks hacia este repo. Edita los archivos aquí, no las copias enlazadas.
 - Los respaldos generados (`*.bak`, `*.bak.*`, `*.orig`) están en `.gitignore`; no los versiones.
 
 ## Trampas

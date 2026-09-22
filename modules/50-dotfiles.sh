@@ -9,6 +9,7 @@ link_file "$DOTFILES_DIR/.gitconfig" "$HOME/.gitconfig"
 
 link_file "$DOTFILES_DIR/config/gtk/gtk-3.0" "$HOME/.config/gtk-3.0"
 link_file "$DOTFILES_DIR/config/gtk/gtk-4.0" "$HOME/.config/gtk-4.0"
+link_file "$DOTFILES_DIR/config/opencode/themes" "$HOME/.config/opencode/themes"
 link_file "$DOTFILES_DIR/config/hypr" "$HOME/.config/hypr"
 link_file "$DOTFILES_DIR/config/kitty" "$HOME/.config/kitty"
 link_file "$DOTFILES_DIR/config/swaync" "$HOME/.config/swaync"
