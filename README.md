@@ -64,7 +64,7 @@ La barra activa es `config/waybar/bars/top/top-bar-2.jsonc`. Incluye un módulo 
 
 ### Emojis (wofi-emoji)
 
-Selector de emojis integrado con el lanzador wofi. Se abre con `SUPER + .` (`config/hypr/modules/keybinds.conf`) y, al pulsar `Enter`, teclea el emoji directamente en el campo enfocado vía `wtype` (o lo copia al portapapeles con `wl-copy`). Dependencias: `wofi`, `wl-clipboard`, `wtype` (`modules/10-system.sh`) y `wofi-emoji` desde AUR (`modules/20-aur.sh`). El renderizado usa `noto-fonts-emoji`.
+Selector de emojis integrado con el lanzador wofi. Se abre con `SUPER + .` (`config/hypr/modules/keybinds.conf`) y, al pulsar `Enter`, teclea el emoji directamente en el campo enfocado vía `wtype` (o lo copia al portapapeles con `wl-copy`). La tecla enlaza el wrapper `bin/wofi-emoji` (symlink en `~/.local/bin`, por ruta completa porque el PATH de Hyprland no incluye `~/.local/bin`); el wrapper reutiliza la lista de emojis del paquete AUR y, en apps Chromium/Electron (VSCode, Discord, Chrome...), inserta el emoji por portapapeles + `Ctrl+V` simulado porque `wtype` no teclea bien ciertos caracteres en esas apps. Dependencias: `wofi`, `wl-clipboard`, `wtype` (`modules/10-system.sh`), `wofi-emoji` desde AUR (`modules/20-aur.sh`) y `jq`. El renderizado usa `noto-fonts-emoji`.
 
 ## Extras opcionales
 

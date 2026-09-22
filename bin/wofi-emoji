@@ -1,0 +1,19 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+# wtype no inserta ciertos caracteres (emojis) en apps Chromium/Electron
+# (VSCode, Discord, ...). En esas apps se copia al portapapeles y se simula
+# Ctrl+V; en el resto se teclea directo como hace el script original.
+focused="$(hyprctl activewindow -j | jq -r .class 2>/dev/null || true)"
+chromium="$(printf '%s' "$focused" | grep -iE '^(code|vscodium|discord|slack|chromium|google-chrome|brave-browser|cursor|zed)$' || true)"
+
+EMOJI="$(sed '1,/^### DATA ###$/d' /usr/bin/wofi-emoji | wofi -p "emoji" --show dmenu -i | cut -d ' ' -f 1 | tr -d '\n')"
+
+if [[ -n "$chromium" ]]; then
+  wl-copy "$EMOJI"
+  wtype -M ctrl V -m ctrl
+else
+  wtype "$EMOJI"
+  wl-copy "$EMOJI"
+fi
+exit
