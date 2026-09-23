@@ -2,6 +2,8 @@
 
 Entorno de desarrollo reproducible para Arch Linux: instalador bash modular y configs de Hyprland/Waybar/Kitty/Wofi/SwayNC, con extras opcionales.
 
+![Escritorio](docs/desktop.png)
+
 ## Instalación rápida
 
 ```bash
