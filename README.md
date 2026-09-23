@@ -113,6 +113,9 @@ No forman parte de `install.sh`; se instalan aparte porque son específicos de u
 
 - `docs/COMMAND_LINE_TOOLS.md`: Android SDK Command Line Tools para Expo / React Native.
 
+## Contributing
+No dudes en abrir incidencias y solicitudes de fusión con las correcciones.
+
 ## Licencia
 
 MIT, ver `LICENSE`.
