@@ -62,6 +62,41 @@ Los colores se definen por capas, todas versionadas en este repo:
 
 La barra activa es `config/waybar/bars/top/top-bar-2.jsonc`. Incluye un módulo **DeepSeek** (`config/waybar/modules/custom-deepseek.jsonc`) que muestra con un icono de color si la API está en horario **peak** (tarifa completa) u **off-peak** (50% de descuento), evaluado en UTC; un script (`config/waybar/scripts/deepseek-peak.sh watch`) avisa con `notify-send` al cambiar de tarifa. Detalles en `config/waybar/README.md`.
 
+### Atajos de teclado
+
+Definidos en `config/hypr/modules/keybinds.conf` (modificador principal `$mainMod = SUPER`):
+
+| Atajo | Acción |
+| --- | --- |
+| `SUPER + Enter` | Terminal |
+| `SUPER + Q` | Cerrar ventana activa |
+| `SUPER + M` | Apagar / salir de la sesión |
+| `SUPER + E` | Gestor de archivos |
+| `SUPER + B` | Navegador |
+| `SUPER + C` | Editor |
+| `SUPER + Z` | Zed |
+| `SUPER + R` | Menú (wofi) |
+| `SUPER + .` | Selector de emojis (wofi-emoji) |
+| `SUPER + V` | Activar/desactivar floating |
+| `SUPER + P` | Modo pseudotileado (dwindle) |
+| `SUPER + F` | Pantalla completa |
+| `SUPER + F6` | Bloquear pantalla (hyprlock) |
+| `SUPER + SHIFT + F6` | Apagar/encender pantallas (DPMS) |
+| `SUPER + SHIFT + S` | Captura parcial: guarda en `~/Pictures` y copia al portapapeles |
+| `SUPER + [1-9,0]` | Cambiar workspace |
+| `SUPER + SHIFT + [1-9,0]` | Mover ventana a workspace |
+| `SUPER + Flechas` | Mover foco |
+| `SUPER + SHIFT + Flechas` | Mover ventana |
+| `SUPER + CTRL + Flechas` | Redimensionar ventana |
+| `SUPER + F1/F2` | Brillo `-5`/`+5` |
+| `SUPER + F10` | Silenciar audio |
+| `SUPER + F11/F12` | Volumen `-5`/`+5` |
+| `SUPER + SHIFT + W` | Recargar Waybar |
+| `SUPER + SHIFT + R` | Recargar Hyprland |
+| `SUPER + Rueda` | Navegar workspaces |
+| `SUPER + LMB/RMB` (arrastrando) | Mover/redimensionar ventana |
+| Teclas multimedia | Volumen, silencio y brillo |
+
 ### Emojis (wofi-emoji)
 
 Selector de emojis integrado con el lanzador wofi. Se abre con `SUPER + .` (`config/hypr/modules/keybinds.conf`) y, al pulsar `Enter`, teclea el emoji directamente en el campo enfocado vía `wtype` (o lo copia al portapapeles con `wl-copy`). La tecla enlaza el wrapper `bin/wofi-emoji` (symlink en `~/.local/bin`, por ruta completa porque el PATH de Hyprland no incluye `~/.local/bin`); el wrapper reutiliza la lista de emojis del paquete AUR y, en apps Chromium/Electron (VSCode, Discord, Chrome...), inserta el emoji por portapapeles + `Ctrl+V` simulado porque `wtype` no teclea bien ciertos caracteres en esas apps. Dependencias: `wofi`, `wl-clipboard`, `wtype` (`modules/10-system.sh`), `wofi-emoji` desde AUR (`modules/20-aur.sh`) y `jq`. El renderizado usa `noto-fonts-emoji`.
