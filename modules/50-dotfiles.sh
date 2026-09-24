@@ -22,8 +22,10 @@ mkdir -p "$HOME/.local/bin"
 link_file "$DOTFILES_DIR/bin/reload-swaync" "$HOME/.local/bin/reload-swaync"
 link_file "$DOTFILES_DIR/bin/reload-waybar" "$HOME/.local/bin/reload-waybar"
 link_file "$DOTFILES_DIR/bin/wofi-emoji" "$HOME/.local/bin/wofi-emoji"
+link_file "$DOTFILES_DIR/bin/wifi-menu" "$HOME/.local/bin/wifi-menu"
 
 chmod +x \
   "$HOME/.local/bin/reload-swaync" \
   "$HOME/.local/bin/reload-waybar" \
-  "$HOME/.local/bin/wofi-emoji"
+  "$HOME/.local/bin/wofi-emoji" \
+  "$HOME/.local/bin/wifi-menu"

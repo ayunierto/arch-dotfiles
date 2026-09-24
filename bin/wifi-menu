@@ -1,0 +1,136 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+notify() { notify-send "wifi-menu" "$1"; }
+
+nmcli radio wifi on
+
+rescan_requested=0
+wpid=0
+on_usr1() { rescan_requested=1; [[ "$wpid" -gt 0 ]] && kill "$wpid" 2>/dev/null || true; }
+trap on_usr1 USR1
+
+declare -A best_signal in_use sec
+seen=()
+
+# -e yes escapa los ':' dentro de un SSID como '\:'; lo substituimos por un
+# marcador temporal, partimos por el ':' real de los campos y lo restauramos
+# después para soportar SSIDs con ':' (2.4/5/6 GHz duplican el mismo SSID).
+scanner() { nmcli -e yes -t -f SSID,SIGNAL,IN-USE,SECURITY dev wifi list --rescan "$1" 2>/dev/null || true; }
+
+collect() {
+  local lines=()
+  # Usa el último escaneo (NM ya escanea periódicamente) para abrir al instante;
+  # solo fuerza un escaneo nuevo si no hay ninguna red visible.
+  mapfile -t lines < <(scanner no)
+  if [[ ${#lines[@]} -eq 0 ]]; then
+    mapfile -t lines < <(scanner yes)
+  fi
+
+  best_signal=(); in_use=(); sec=(); seen=()
+  for line in "${lines[@]}"; do
+    [[ -z "$line" ]] && continue
+    line="${line//\\:/$'\x01'}"
+    IFS=':' read -r ssid signal is_used security <<< "$line"
+    ssid="${ssid//$'\x01'/:}"
+    [[ -z "$ssid" ]] && continue
+    is_used="${is_used//[[:space:]]/}"
+    security="${security//$'\x01'/:/}"
+
+    # Dedupe: prioriza mayor señal; una red en uso gana aunque el BSSID
+    # (banda) que la emite tenga menos señal que otro del mismo SSID.
+    if [[ -z "${best_signal[$ssid]+x}" ]]; then
+      seen+=("$ssid")
+    elif [[ "$is_used" != "*" && "${best_signal[$ssid]}" -ge "$signal" ]]; then
+      continue
+    fi
+    best_signal[$ssid]="$signal"
+    [[ "$is_used" == "*" ]] && in_use[$ssid]="*"
+    [[ -z "${sec[$ssid]+x}" ]] && sec[$ssid]="$security"
+  done
+}
+
+while :; do
+  collect
+
+  if [[ ${#seen[@]} -eq 0 ]]; then
+    notify "No se encontraron redes Wi-Fi"
+    exit 0
+  fi
+
+  options=()
+  declare -A idx_to_ssid
+  options+=("🔍 Re-scanear")
+  for i in "${!seen[@]}"; do
+    ssid="${seen[$i]}"
+    signal="${best_signal[$ssid]}"
+    bars=""
+    for f in 25 50 75 100; do
+      ((signal >= f)) && bars+="█" || bars+="░"
+    done
+    mark=""
+    [[ -n "${in_use[$ssid]+x}" ]] && mark="◉ "
+    options+=("$i $mark$ssid [$signal%] $bars")
+    idx_to_ssid[$i]="$ssid"
+  done
+
+  sel=""
+  wpid=0
+  out="$(mktemp)"
+  printf '%s\n' "${options[@]}" | wofi -d -p "Selecciona tu red Wi-Fi " >"$out" 2>/dev/null &
+  wpid=$!
+  wait "$wpid"; rc=$?
+  sel="$(<"$out")"
+  rm -f "$out"
+  wpid=0
+
+  if [[ $rc -ne 0 ]]; then
+    # Escaneado de nuevo por señal mientras abierto: reopens el menú.
+    if [[ "$rescan_requested" -eq 1 ]]; then
+      rescan_requested=0
+      nmcli dev wifi rescan >/dev/null 2>&1 || true
+      continue
+    fi
+    exit 0
+  fi
+  [[ -z "$sel" ]] && exit 0
+
+  if [[ "$sel" == *Re-scanear* ]]; then
+    rescan_requested=0
+    nmcli dev wifi rescan >/dev/null 2>&1 || true
+    continue
+  fi
+
+  idx="${sel%% *}"
+  ssid="${idx_to_ssid[$idx]:-}"
+  while [[ -z "$ssid" ]]; do
+    # El usuario escribió texto libre; reintenta el menú hasta un SSID válido.
+    out="$(mktemp)"
+    printf '%s\n' "${options[@]}" | wofi -d -p "Wi-Fi: " >"$out" 2>/dev/null &
+    wpid=$!
+    wait "$wpid"; rc=$?
+    sel="$(<"$out")"
+    rm -f "$out"
+    wpid=0
+    [[ $rc -ne 0 || -z "$sel" ]] && exit 0
+    idx="${sel%% *}"
+    ssid="${idx_to_ssid[$idx]:-}"
+  done
+
+  if nmcli -g NAME connection show | grep -qxF "$ssid"; then
+    nmcli connection up id "$ssid" >/dev/null 2>&1 && notify "Conectado a $ssid" || notify "Fallo al conectar a $ssid"
+  elif [[ "${sec[$ssid]:-}" == "--" ]]; then
+    nmcli device wifi connect "$ssid" >/dev/null 2>&1 && notify "Conectado a $ssid" || notify "Fallo al conectar a $ssid"
+  else
+    context="Escribe la contraseña de la red \"$ssid\" aquí"
+    hint="Vacío + Enter para cancelar"
+    pass="$(printf '%s\n%s\n' "$context" "$hint" | wofi -d -P -D line_wrap=word 2>/dev/null || true)"
+    [[ -z "$pass" || "$pass" == "$context" || "$pass" == "$hint" ]] && exit 0
+    if nmcli device wifi connect "$ssid" password "$pass" >/dev/null 2>&1; then
+      notify "Conectado a $ssid"
+    else
+      notify "Fallo al conectar a $ssid (clave incorrecta?)"
+    fi
+  fi
+  exit 0
+done

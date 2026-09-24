@@ -18,3 +18,6 @@ pkg_install \
   lm_sensors fish \
   noto-fonts-cjk noto-fonts-emoji ttf-jetbrains-mono-nerd \
   adwaita-fonts
+
+# wifi-menu usa nmcli; habilita el servicio en instalaciones nuevas.
+sudo systemctl enable NetworkManager || true
