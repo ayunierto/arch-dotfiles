@@ -50,12 +50,12 @@ status() {
   if is_peak "$now"; then
     state="PEAK"
     cls="peak"
-    icon="󰁔"
+    icon="󰀩"
     label="tarifa completa"
   else
     state="OFF-PEAK"
     cls="offpeak"
-    icon="󰁅"
+    icon="󰑯"
     label="50% de descuento"
   fi
 
