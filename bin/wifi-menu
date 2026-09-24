@@ -79,7 +79,8 @@ while :; do
   out="$(mktemp)"
   printf '%s\n' "${options[@]}" | wofi -d -p "Selecciona tu red Wi-Fi " >"$out" 2>/dev/null &
   wpid=$!
-  wait "$wpid"; rc=$?
+  rc=0
+  wait "$wpid" || rc=$?
   sel="$(<"$out")"
   rm -f "$out"
   wpid=0
@@ -108,7 +109,8 @@ while :; do
     out="$(mktemp)"
     printf '%s\n' "${options[@]}" | wofi -d -p "Wi-Fi: " >"$out" 2>/dev/null &
     wpid=$!
-    wait "$wpid"; rc=$?
+    rc=0
+    wait "$wpid" || rc=$?
     sel="$(<"$out")"
     rm -f "$out"
     wpid=0
