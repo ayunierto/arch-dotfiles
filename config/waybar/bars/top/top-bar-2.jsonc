@@ -14,6 +14,7 @@
 
   "modules-right": [
     "backlight",
+    "custom/hyprsunset",
     "temperature",
     "pulseaudio",
     "network",
@@ -33,6 +34,7 @@
     "~/.config/waybar/modules/custom-deepseek.jsonc",
     "~/.config/waybar/modules/hyprland-window.jsonc",
     "~/.config/waybar/modules/backlight.jsonc",
+    "~/.config/waybar/modules/custom-hyprsunset.jsonc",
     "~/.config/waybar/modules/temperature.jsonc",
     "~/.config/waybar/modules/pulseaudio.jsonc",
     "~/.config/waybar/modules/network.jsonc",

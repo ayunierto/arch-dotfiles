@@ -29,6 +29,7 @@ tooltip label {
 #cpu,
 #disk,
 #custom-deepseek,
+#custom-hyprsunset,
 #backlight,
 #temperature,
 #pulseaudio,
@@ -192,6 +193,14 @@ menuseparator {
 
 #network {
     /* min-width: 80px; */
+    color: @Teal;
+}
+
+#custom-hyprsunset.warm {
+    color: @Yellow;
+}
+
+#custom-hyprsunset.off {
     color: @Teal;
 }
 

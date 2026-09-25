@@ -7,7 +7,7 @@ pkg_update
 pkg_install \
   zsh git curl unzip base-devel \
   fzf ripgrep bat lsd jq ca-certificates libnotify \
-  github-cli hyprpaper hypridle hyprlock \
+  github-cli hyprpaper hypridle hyprlock hyprsunset \
   waybar swaync wofi kitty swayosd \
   grim slurp wl-clipboard wtype brightnessctl playerctl wmctrl \
   wireplumber pavucontrol \

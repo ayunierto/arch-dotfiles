@@ -3,6 +3,9 @@
 # Automounter for removable media
 # udiskie &
 
+# Filtro de luz cálida (blue light)
+hyprsunset &
+
 # Bar
 waybar &
 

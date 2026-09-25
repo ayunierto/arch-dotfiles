@@ -46,6 +46,17 @@ Indica en un vistazo si DeepSeek cobra tarifa completa o el **50% de descuento**
 | Peak | Dom 20:00–23:00 · Lun–Jue 01:00–05:00 y 20:00–23:00 · Vie 01:00–05:00 |
 | Off-peak | Todo lo demás (incluye jueves/sábados completos y vie desde las 23:00) |
 
+## Módulo hyprsunset (luz cálida)
+
+Toggle y ajuste del filtro de luz cálida de Hyprland desde la barra: un clic lo activa/desactiva, la rueda sube/baja la temperatura en pasos de `500K` (menos Kelvin = más cálido) y el botón central vuelve al perfil horario (`config/hypr/hyprsunset.conf`).
+
+- `modules/custom-hyprsunset.jsonc` — módulo `custom/hyprsunset` con `return-type: json`, `interval: 60` y `signal: 4` (SIGRTMIN+4).
+- `scripts/hyprsunset.sh` — acciones `status` (JSON para waybar), `toggle`, `warmer`/`cooler` (±500K) y `reset`. Lee el estado en vivo por IPC (`hyprctl hyprsunset identity get` / `temperature`), así que no guarda estado propio; tras cada acción lanza `pkill -RTMIN+4 -x waybar` para refresco instantáneo.
+- Iconos: luna (`󰖔`, clase `.warm`) = filtro activo; sol (`󰖙`, `.off`) = apagado. Estilos en `bars/top/top-bar-2.css` (`@Yellow` / `@Teal`).
+- También hay un toggle por teclado: `SUPER+F9` en `config/hypr/modules/keybinds.conf`.
+
+> Si prefieres regular el **brillo percibido** en vez de la temperatura, hyprsunset también soporta gamma: `hyprctl hyprsunset gamma ±10` (el daemon lo limita a `max-gamma`). El módulo usa temperatura por defecto.
+
 ## Operación
 
 - Añadir un módulo: crea `modules/<nombre>.jsonc`, inclúyelo en la barra con `modules-*` y añádelo al `include`.

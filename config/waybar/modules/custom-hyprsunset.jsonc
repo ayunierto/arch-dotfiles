@@ -1,0 +1,14 @@
+{
+  "custom/hyprsunset": {
+    "exec": "${HOME}/.config/waybar/scripts/hyprsunset.sh status",
+    "return-type": "json",
+    "format": "{}",
+    "tooltip": true,
+    "interval": 60,
+    "signal": 4,
+    "on-click": "${HOME}/.config/waybar/scripts/hyprsunset.sh toggle",
+    "on-scroll-up": "${HOME}/.config/waybar/scripts/hyprsunset.sh warmer",
+    "on-scroll-down": "${HOME}/.config/waybar/scripts/hyprsunset.sh cooler",
+    "on-click-middle": "${HOME}/.config/waybar/scripts/hyprsunset.sh reset"
+  }
+}
