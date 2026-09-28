@@ -1,6 +1,7 @@
 # Files
+alias ls='lsd -l'
 alias ll='lsd -la'
-alias l='ls -CF'
+alias l='lsd -lF'
 alias fd='fdfind'
 
 # Git

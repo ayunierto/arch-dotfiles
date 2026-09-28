@@ -1,0 +1,195 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+# Grabación de pantalla para Hyprland con wf-recorder (0.6.x) sobre PipeWire.
+# Atajos: SUPER+F8 (sistema + micrófono) y SUPER+SHIFT+F8 (solo sistema).
+#
+# Por qué --audio-backend=pulse es obligatorio: con el valor por defecto
+# 'auto', wf-recorder 0.6 no crea ningún lector de audio y graba en silencio
+# sin avisar. Con el backend 'pulse' los nombres de dispositivo son los de
+# pactl (pipewire-pulse los publica). El backend 'pipewire' compararía contra
+# el node.name nativo y no reconhecería 'algo.monitor'.
+
+APP="Grabadora"
+STATE="${XDG_RUNTIME_DIR:-/tmp}/screen-recorder.${UID}.state"
+LOG="${XDG_RUNTIME_DIR:-/tmp}/screen-recorder.${UID}.log"
+DESTINO="${XDG_VIDEOS_DIR:-$HOME/Videos}"
+MIX="screen-recorder-mix" # null-sink virtual para mezclar sistema + micrófono
+ESPERA_MAX=15             # segundos para que wf-recorder cierre el archivo
+
+notify() { notify-send -a "$APP" "${1}" "${2:-$1}" || true; }
+
+estado() {
+  # Lee un valor del fichero de estado (pid, archivo, modo, modulos, inicio).
+  local clave="$1" linea
+  [[ -f "$STATE" ]] || return 1
+  linea="$(grep -m1 "^$clave=" "$STATE" 2>/dev/null)" || return 1
+  printf '%s' "${linea#*=}"
+}
+
+esperar_salida() {
+  local pid="$1" i
+  for (( i = 0; i < ESPERA_MAX * 10; i++ )); do
+    kill -0 "$pid" 2>/dev/null || return 0
+    sleep 0.1
+  done
+  return 1
+}
+
+descargar_modulos() {
+  # Descarga los módulos por ID, en orden inverso al de carga. Nunca por
+  # nombre: 'pactl unload-module module-null-sink' mataría también sinks
+  # virtuales ajenos, y los loopbacks deben soltarse antes que el null-sink.
+  local mods="$1" id
+  for id in $(tr ' ' '\n' <<<"$mods" | tac); do
+    pactl unload-module "$id" >/dev/null 2>&1 || true
+  done
+}
+
+crear_mix() {
+  # Mezcla sistema + micrófono en un null-sink. device.idle_timeout=0 evita que
+  # el sink se suspenda cuando todo el mundo está en silencio: si se suspende,
+  # los loopbacks dejan de alimentarlo y la pista de audio se corta.
+  local mic="${1:-}" mods= id
+
+  mods="$(pactl load-module module-null-sink sink_name="$MIX" \
+    sink_properties="device.description=ScreenRecorderMix device.idle_timeout=0")" || {
+    notify "No se pudo crear el audio virtual" "Fallo al cargar module-null-sink"
+    return 1
+  }
+
+  # Micrófono: origen explícito, no 'el source por defecto' implícito.
+  id="$(pactl load-module module-loopback source="$mic" sink="$MIX")" || {
+    descargar_modulos "$mods"
+    return 1
+  }
+  mods="$mods $id"
+
+  # Audio del sistema: el monitor del sink por defecto (el de los altavoces).
+  id="$(pactl load-module module-loopback source="$(pactl get-default-sink).monitor" sink="$MIX")" || {
+    descargar_modulos "$mods"
+    return 1
+  }
+  mods="$mods $id"
+
+  printf '%s' "$mods"
+}
+
+iniciar() {
+  local modo="$1" mods="" fuente inicio
+
+  command -v wf-recorder >/dev/null || {
+    echo "Error: wf-recorder no está instalado." >&2
+    notify "wf-recorder no está instalado" "Instálalo con: sudo pacman -S wf-recorder"
+    return 1
+  }
+  command -v pactl >/dev/null || { echo "Error: pactl no está disponible." >&2; return 1; }
+
+  mkdir -p "$DESTINO"
+
+  if [[ "$modo" == "mic" ]]; then
+    mods="$(crear_mix "$(pactl get-default-source)")" || return 1
+    fuente="$MIX.monitor"
+  else
+    fuente="$(pactl get-default-sink).monitor"
+  fi
+
+  if [[ -z "${fuente%.monitor}" ]]; then
+    descargar_modulos "$mods"
+    echo "Error: no hay un dispositivo de salida de audio." >&2
+    notify "No hay salida de audio" "No se pudo determinar el dispositivo a grabar"
+    return 1
+  fi
+
+  local archivo="$DESTINO/rec_$(date +'%Y-%m-%d_%H-%M-%S').mp4"
+  inicio=$(date +%s)
+
+  # -y evita el prompt 'Overwrite? Y/n' de wf-recorder si el archivo ya existe.
+  wf-recorder --audio-backend=pulse -a="$fuente" -f "$archivo" -y >"$LOG" 2>&1 &
+  local pid=$!
+  sleep 0.4
+  if ! kill -0 "$pid" 2>/dev/null; then
+    descargar_modulos "$mods"
+    echo "Error: wf-recorder murió al arrancar. Log:" >&2
+    tail -n 5 "$LOG" >&2 || true
+    notify "No se pudo grabar" "wf-recorder falló al arrancar (ver $LOG)"
+    return 1
+  fi
+
+  printf 'pid=%s\narchivo=%s\nmodo=%s\nmodulos=%s\ninicio=%s\n' \
+    "$pid" "$archivo" "$modo" "$mods" "$inicio" >"$STATE"
+
+  if [[ "$modo" == "mic" ]]; then
+    notify "Grabando sistema + micrófono" "$archivo"
+  else
+    notify "Grabando audio del sistema" "$archivo"
+  fi
+}
+
+detener() {
+  local pid archivo modo mods inicio
+
+  pid="$(estado pid)" || { notify "No hay ninguna grabación en curso"; return 0; }
+
+  archivo="$(estado archivo || true)"
+  modo="$(estado modo || true)"
+  mods="$(estado modulos || true)"
+  inicio="$(estado inicio || true)"
+
+  if ! kill -0 "$pid" 2>/dev/null; then
+    rm -f "$STATE"
+    descargar_modulos "$mods"
+    notify "La grabación ya había terminado" "$archivo"
+    return 0
+  fi
+
+  # SIGINT es la terminación limpia de wf-recorder: cierra el contenedor y
+  # escribe el índice del mp4. Con SIGKILL el archivo queda sin cerrar.
+  kill -INT "$pid" 2>/dev/null || true
+  if ! esperar_salida "$pid"; then
+    kill -TERM "$pid" 2>/dev/null || true
+    esperar_salida "$pid" || true
+  fi
+
+  # El mp4 solo está finalizado cuando wf-recorder ha salido: ahora se puede
+  # medir el tamaño sin riesgo de leerlo a medias.
+  descargar_modulos "$mods"
+  rm -f "$STATE"
+
+  if [[ ! -s "$archivo" ]]; then
+    notify "Grabación vacía" "No se escribió nada en $archivo (ver $LOG)"
+    return 1
+  fi
+
+  dur=$(($(date +%s) - ${inicio:-0}))
+  local h=$((dur / 3600)) m=$(((dur % 3600) / 60)) s=$((dur % 60)) tam dur_txt
+  if   (( h > 0 )); then dur_txt="${h}h ${m}min"
+  elif (( m > 0 )); then dur_txt="${m}min ${s}s"
+  else                   dur_txt="${s}s"
+  fi
+
+  tam=$(du -h "$archivo" 2>/dev/null | cut -f1)
+  if [[ "$modo" == "mic" ]]; then
+    notify "Grabación guardada" "$archivo · $dur_txt · $tam (sistema + micrófono)"
+  else
+    notify "Grabación guardada" "$archivo · $dur_txt · $tam (solo sistema)"
+  fi
+}
+
+toggle() {
+  local modo="$1" pid
+  pid="$(estado pid 2>/dev/null || true)"
+  if [[ -n "$pid" ]] && kill -0 "$pid" 2>/dev/null; then
+    detener
+  else
+    rm -f "$STATE" # estado huérfano de una grabación que ya no murió por nosotros
+    iniciar "$modo"
+  fi
+}
+
+case "${1:-}" in
+  system) toggle "system" ;;
+  mic)    toggle "mic" ;;
+  stop)   detener ;;
+  *)      echo "Uso: $0 {system|mic|stop}" >&2; exit 1 ;;
+esac

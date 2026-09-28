@@ -9,6 +9,7 @@ link_file "$DOTFILES_DIR/.gitconfig" "$HOME/.gitconfig"
 
 link_file "$DOTFILES_DIR/config/gtk/gtk-3.0" "$HOME/.config/gtk-3.0"
 link_file "$DOTFILES_DIR/config/gtk/gtk-4.0" "$HOME/.config/gtk-4.0"
+link_file "$DOTFILES_DIR/config/opencode/AGENTS.md" "$HOME/.config/opencode/AGENTS.md"
 link_file "$DOTFILES_DIR/config/opencode/themes" "$HOME/.config/opencode/themes"
 link_file "$DOTFILES_DIR/config/hypr" "$HOME/.config/hypr"
 link_file "$DOTFILES_DIR/config/kitty" "$HOME/.config/kitty"
@@ -21,11 +22,13 @@ mkdir -p "$HOME/.local/bin"
 
 link_file "$DOTFILES_DIR/bin/reload-swaync" "$HOME/.local/bin/reload-swaync"
 link_file "$DOTFILES_DIR/bin/reload-waybar" "$HOME/.local/bin/reload-waybar"
+link_file "$DOTFILES_DIR/bin/screen-recorder" "$HOME/.local/bin/screen-recorder"
 link_file "$DOTFILES_DIR/bin/wofi-emoji" "$HOME/.local/bin/wofi-emoji"
 link_file "$DOTFILES_DIR/bin/wifi-menu" "$HOME/.local/bin/wifi-menu"
 
 chmod +x \
   "$HOME/.local/bin/reload-swaync" \
   "$HOME/.local/bin/reload-waybar" \
+  "$HOME/.local/bin/screen-recorder" \
   "$HOME/.local/bin/wofi-emoji" \
   "$HOME/.local/bin/wifi-menu"

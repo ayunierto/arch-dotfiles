@@ -14,7 +14,7 @@ Dotfiles personales de Arch Linux + un instalador bash modular. Sin código de a
 
 - Toda la salida de scripts, comentarios y docs está en **español** - mantén eso al añadir mensajes.
 - Todo es idempotente/re-ejecutable; ejecutar `./install.sh` necesita `sudo` (pacman) y solo funciona en Arch.
-- El repo es la fuente de verdad: `~/.zshrc`, `~/.aliases`, `~/.exports`, `~/.gitconfig`, los temas de opencode (`~/.config/opencode/themes`) y todo lo de `~/.config/{gtk-3.0,gtk-4.0,hypr,kitty,swaync,swayosd,waybar,wofi}` son symlinks hacia este repo. Edita los archivos aquí, no las copias enlazadas.
+- El repo es la fuente de verdad: `~/.zshrc`, `~/.aliases`, `~/.exports`, `~/.gitconfig`, las reglas globales del agente (`~/.config/opencode/AGENTS.md`), los temas de opencode (`~/.config/opencode/themes`) y todo lo de `~/.config/{gtk-3.0,gtk-4.0,hypr,kitty,swaync,swayosd,waybar,wofi}` son symlinks hacia este repo. Edita los archivos aquí, no las copias enlazadas.
 - Los respaldos generados (`*.bak`, `*.bak.*`, `*.orig`) están en `.gitignore`; no los versiones.
 
 ## Trampas
@@ -24,6 +24,15 @@ Dotfiles personales de Arch Linux + un instalador bash modular. Sin código de a
 - `config/waybar/README.md` documenta el esquema real `bars/`, `modules/`, `theme/`; la barra activa se elige con el `include` de `config/waybar/config.jsonc` y el `@import` de `style.css`. El módulo `custom/deepseek` evalúa la tarifa de la API de DeepSeek en **UTC** (no hora local): los horarios peak (`01:00–04:00` y `06:00–10:00` UTC lun–vie, feriados chinos ignorados) se definen en UTC, así que el script calcula día/hora con aritmética sobre el epoch (sin `date -u`); su notificador `deepseek-peak.sh watch` se arranca desde `config/hypr/scripts/autostart/services` (el módulo usa `signal: 3` y `watch` dispara `pkill -RTMIN+3 -x waybar` para refrescar el icono al instante).
 - Thermal Guard vive en `extras/thermal-guard/` (`install.sh`, `thermal-guard.sh`, `thermal-guard.service`, `README.md`) y es opcional: requiere AMD Ryzen. Crea un drop-in NOPASSWD en `/etc/sudoers.d/90-ryzenadj` y un servicio systemd de usuario. Resuelve `ryzenadj` con `command -v` (`$RYZENADJ_BIN`); no asumas `/usr/bin/ryzenadj`. El paquete `ryzenadj` sí se instala desde `modules/20-aur.sh` porque los aliases `set-power-*` de `.zshrc` lo usan.
 - NVM: el instalador reutiliza `~/.config/nvm` o `~/.nvm` (el que exista) con `PROFILE=/dev/null`; `.zshrc` carga el que esté presente.
+- `bin/screen-recorder` llama a `wf-recorder` **siempre con `--audio-backend=pulse`**: con el `auto` por defecto, wf-recorder 0.6 no crea lector de audio y graba en silencio sin avisar; y el backend `pipewire` compara contra el `node.name` nativo, donde `algo.monitor` no existe (los nombres de `pactl` solo valen con `pulse`). En modo `mic` carga un `module-null-sink` + 2 `module-loopback` y guarda en `$XDG_RUNTIME_DIR` los IDs que devuelve `pactl load-module` para descargarlos **por ID**: nunca uses `pactl unload-module module-null-sink`, que también mataría sumideros virtuales ajenos (p. ej. el sink de EasyEffects). Para detener usa `SIGINT` (el que cierra el mp4 y escribe el índice) y borra el estado solo cuando el proceso ya ha salido.
+
+## Sistema Notion (productividad)
+
+- Creado vía MCP en el espacio de Notion del usuario (no documenta SQL aquí; los comandos de opencode viven solo en local en `~/.config/opencode/command/`, fuera de este repo).
+- Bases de datos: **Áreas** (`collection://e3bbee17-5b8d-44a2-9a93-9fc7d047a20e`), **Proyectos** (`collection://28adda7d-55e3-47a6-b16e-dbe98d516281`), **Tareas y Compras** (`collection://3d71f789-512d-45c4-b233-5ebe2f71f347`) y **Recursos y Notas** (`collection://c59f30e8-ac40-48a6-91da-7a02d33c0451`).
+- Estructura: cada tarea/compra apunta a un Proyecto (obligatorio); el proyecto tiene rollups "Tareas totales"/"Tareas hechas" y fórmula "Progreso" (%). La página "Centro de Mando" con 3 vistas de "Tareas y Compras": "Hoy y Atrasado" (lista), "Calendario General" y "Lista de Compras DIY" (tabla).
+- **Relaciones unidireccionales en el MCP**: crear una tarea con "Proyecto" NO añade la tarea a la propiedad "Tareas" del proyecto, y sin ese segundo enlace los rollups no la cuentan. Los comandos deben enlazar ambos lados; `revision-diaria` también verifica la sincronización.
+- Estado de tareas: `Para hacer` / `En progreso` / `Hecho` (select, no status). Prioridades: `1-Alta` / `2-Media` / `3-Baja`. Tipos: `Acción` / `Compra/Material`. Áreas: `Personal`, `Trabajo (Software)`, `Hobby (DIY/RC)`.
 
 ## Verificar cambios
 

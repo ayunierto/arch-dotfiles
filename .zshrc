@@ -35,3 +35,8 @@ alias set-power-perf='sudo ryzenadj --stapm-limit=28000 --fast-limit=28000 --slo
 alias set-power-extreme='sudo ryzenadj --stapm-limit=32000 --fast-limit=35000 --slow-limit=32000 --vrm-current=80000 --tctl-temp=90'
 alias set-power-eco='sudo ryzenadj --stapm-limit=6000 --fast-limit=8000 --slow-limit=6000 --tctl-temp=95'
 alias set-power-optimus-85='sudo ryzenadj --stapm-limit=32000 --fast-limit=34000 --slow-limit=32000 --tctl-temp=85 --vrm-current=70000 --apu-skin-temp=45'
+
+
+# Configuración de LiteLLM Local para OpenCode
+export OPENAI_API_BASE="http://localhost:4000/v1"
+export OPENAI_MODEL_NAME="gemini-autorotate"
