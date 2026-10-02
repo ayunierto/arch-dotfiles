@@ -66,7 +66,7 @@ La barra activa es `config/waybar/bars/top/top-bar-2.jsonc`. Incluye un módulo 
 
 ### Atajos de teclado
 
-Definidos en `config/hypr/modules/keybinds.conf` (modificador principal `$mainMod = SUPER`):
+Definidos en `config/hypr/modules/keybinds.lua` (modificador principal `local mainMod = "SUPER"`):
 
 | Atajo                           | Acción                                                          |
 | ------------------------------- | --------------------------------------------------------------- |
@@ -105,11 +105,11 @@ Definidos en `config/hypr/modules/keybinds.conf` (modificador principal `$mainMo
 
 ### Emojis (wofi-emoji)
 
-Selector de emojis integrado con el lanzador wofi. Se abre con `SUPER + .` (`config/hypr/modules/keybinds.conf`) y, al pulsar `Enter`, teclea el emoji directamente en el campo enfocado vía `wtype` (o lo copia al portapapeles con `wl-copy`). La tecla enlaza el wrapper `bin/wofi-emoji` (symlink en `~/.local/bin`, por ruta completa porque el PATH de Hyprland no incluye `~/.local/bin`); el wrapper reutiliza la lista de emojis del paquete AUR y, en apps Chromium/Electron (VSCode, Discord, Chrome...), inserta el emoji por portapapeles + `Ctrl+V` simulado porque `wtype` no teclea bien ciertos caracteres en esas apps. Dependencias: `wofi`, `wl-clipboard`, `wtype` (`modules/10-system.sh`), `wofi-emoji` desde AUR (`modules/20-aur.sh`) y `jq`. El renderizado usa `noto-fonts-emoji`.
+Selector de emojis integrado con el lanzador wofi. Se abre con `SUPER + .` (`config/hypr/modules/keybinds.lua`) y, al pulsar `Enter`, teclea el emoji directamente en el campo enfocado vía `wtype` (o lo copia al portapapeles con `wl-copy`). La tecla enlaza el wrapper `bin/wofi-emoji` (symlink en `~/.local/bin`, por ruta completa porque el PATH de Hyprland no incluye `~/.local/bin`); el wrapper reutiliza la lista de emojis del paquete AUR y, en apps Chromium/Electron (VSCode, Discord, Chrome...), inserta el emoji por portapapeles + `Ctrl+V` simulado porque `wtype` no teclea bien ciertos caracteres en esas apps. Dependencias: `wofi`, `wl-clipboard`, `wtype` (`modules/10-system.sh`), `wofi-emoji` desde AUR (`modules/20-aur.sh`) y `jq`. El renderizado usa `noto-fonts-emoji`.
 
 ### Wi-Fi (wifi-menu)
 
-Menú Wi-Fi lanzado con `SUPER + W` (`config/hypr/modules/keybinds.conf`) vía el wrapper `bin/wifi-menu` (symlink en `~/.local/bin`, por ruta completa porque el PATH de Hyprland no incluye `~/.local/bin`). Lista las redes escaneadas con `nmcli`, marcando la conectada (`◉`) y mostrando barras de intensidad; se conecta a redes guardadas con `nmcli connection up` y pide la contraseña en el resto. El item `🔍 Re-scanear` fuerza un escaneo nuevo sin cerrar el flujo. Dependencias: `nmcli` (NetworkManager, habilitado en `modules/10-system.sh`), `wofi` y `libnotify` (`modules/10-system.sh`).
+Menú Wi-Fi lanzado con `SUPER + W` (`config/hypr/modules/keybinds.lua`) vía el wrapper `bin/wifi-menu` (symlink en `~/.local/bin`, por ruta completa porque el PATH de Hyprland no incluye `~/.local/bin`). Lista las redes escaneadas con `nmcli`, marcando la conectada (`◉`) y mostrando barras de intensidad; se conecta a redes guardadas con `nmcli connection up` y pide la contraseña en el resto. El item `🔍 Re-scanear` fuerza un escaneo nuevo sin cerrar el flujo. Dependencias: `nmcli` (NetworkManager, habilitado en `modules/10-system.sh`), `wofi` y `libnotify` (`modules/10-system.sh`).
 
 ### Grabación de pantalla (screen-recorder)
 

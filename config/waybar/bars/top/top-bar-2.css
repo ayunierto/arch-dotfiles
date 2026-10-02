@@ -65,8 +65,8 @@ tooltip label {
 #workspaces button {
     margin: 2px;
     border-radius: 100px;
-    padding: 1px 10px;
-    min-width: 20px;
+    padding: 1px 0;
+    min-width: 50px;
     background: @card;
     color: @cardForeground;
 }
@@ -80,7 +80,6 @@ tooltip label {
 #workspaces button.active {
     background-color: @accent;
     color: @accentForeground;
-    min-width: 50px;
 }
 
 /* #wireplumber.muted */

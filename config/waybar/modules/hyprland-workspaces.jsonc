@@ -10,8 +10,8 @@
       "class<kitty>": "", // Windows that contain "kitty" in either class or title. For optimization reasons, it will only match against a title if at least one other window explicitly matches against a title.
       "class<code>": "󰨞"
     },
-    "on-click": "hyprctl dispatch workspace {id}",
-    "on-scroll-up": "hyprctl dispatch workspace prev",
-    "on-scroll-down": "hyprctl dispatch workspace next"
+    "on-click": "hyprctl dispatch hl.dsp.focus({workspace={id}})",
+    "on-scroll-up": "hyprctl dispatch hl.dsp.focus({workspace=\"prev\"})",
+    "on-scroll-down": "hyprctl dispatch hl.dsp.focus({workspace=\"next\"})"
   }
 }

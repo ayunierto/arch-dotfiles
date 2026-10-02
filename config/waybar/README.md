@@ -53,7 +53,7 @@ Toggle y ajuste del filtro de luz cálida de Hyprland desde la barra: un clic lo
 - `modules/custom-hyprsunset.jsonc` — módulo `custom/hyprsunset` con `return-type: json`, `interval: 60` y `signal: 4` (SIGRTMIN+4).
 - `scripts/hyprsunset.sh` — acciones `status` (JSON para waybar), `toggle`, `warmer`/`cooler` (±500K) y `reset`. Lee el estado en vivo por IPC (`hyprctl hyprsunset identity get` / `temperature`), así que no guarda estado propio; tras cada acción lanza `pkill -RTMIN+4 -x waybar` para refresco instantáneo.
 - Iconos: luna (`󰖔`, clase `.warm`) = filtro activo; sol (`󰖙`, `.off`) = apagado. Estilos en `bars/top/top-bar-2.css` (`@Yellow` / `@Teal`).
-- También hay un toggle por teclado: `SUPER+F9` en `config/hypr/modules/keybinds.conf`.
+- También hay un toggle por teclado: `SUPER+F9` en `config/hypr/modules/keybinds.lua`.
 
 > Si prefieres regular el **brillo percibido** en vez de la temperatura, hyprsunset también soporta gamma: `hyprctl hyprsunset gamma ±10` (el daemon lo limita a `max-gamma`). El módulo usa temperatura por defecto.
 

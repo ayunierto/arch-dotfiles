@@ -2,15 +2,21 @@
   "hyprland/workspaces": {
     "format": "{icon}",
     "format-icons": {
-      "1": "",
-      "2": "",
-      "3": "",
-      "active": "",
       "default": "",
+      "active": "",
     },
     "persistent-workspaces": {
       "*": 6, // 5 workspaces by default on every monitor
       "eDP-1": 6, // but only three on HDMI-A-1
     },
+    // OJO: sin estas tres líneas el clic no hace nada (waybar no tiene handler por
+    // defecto), y con la sintaxis hyprlang (`hyprctl dispatch workspace {id}`)
+    // tampoco: con config Lua hyprctl la envuelve como `hl.dispatch(workspace 1)`
+    // y eso no es Lua válido. Hay que pasar una expresión Lua; `{id}` va sin
+    // comillas porque el selector acepta número, y "prev"/"next" son selectores
+    // válidos para cambiar de workspace.
+    "on-click": "hyprctl dispatch hl.dsp.focus({workspace={id}})",
+    "on-scroll-up": "hyprctl dispatch hl.dsp.focus({workspace=\"prev\"})",
+    "on-scroll-down": "hyprctl dispatch hl.dsp.focus({workspace=\"next\"})"
   },
 }
