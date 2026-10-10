@@ -40,3 +40,7 @@ alias set-power-optimus-85='sudo ryzenadj --stapm-limit=32000 --fast-limit=34000
 # Configuración de LiteLLM Local para OpenCode
 export OPENAI_API_BASE="http://localhost:4000/v1"
 export OPENAI_MODEL_NAME="gemini-autorotate"
+
+
+# Binarios locales en PATH
+export PATH="$HOME/.local/bin:$PATH"

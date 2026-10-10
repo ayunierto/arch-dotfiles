@@ -2,7 +2,6 @@
 alias ls='lsd -l'
 alias ll='lsd -la'
 alias l='lsd -lF'
-alias fd='fdfind'
 
 # Git
 alias gs='git status'
