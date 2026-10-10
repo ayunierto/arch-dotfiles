@@ -96,11 +96,12 @@ hl.bind(mainMod .. " + mouse_down", hl.dsp.focus({ workspace = "e+1" }))
 hl.bind(mainMod .. " + mouse_up", hl.dsp.focus({ workspace = "e-1" }))
 
 -- Move/resize windows with mainMod + LMB/RMB and dragging
--- OJO: el `{ mouse = true }` del ejemplo de Hyprland NO existe (se ignora en
--- silencio). Las opciones reales son `click` (arrastrar) y `drag` (redimensionar),
--- y ambas activan `release` implícitamente.
-hl.bind(mainMod .. " + mouse:272", hl.dsp.window.drag(), { click = true })
-hl.bind(mainMod .. " + mouse:273", hl.dsp.window.resize(), { drag = true })
+-- OJO: `{ mouse = true }` es el flag correcto (equivale al `bindm` de hyprlang):
+-- habilita el arrastre interactivo. `click`/`drag` NO sirven aquí: solo disparan
+-- al SOLTAR según el movimiento respecto a `binds:drag_threshold`, así que el
+-- drag-to-move nunca arranca.
+hl.bind(mainMod .. " + mouse:272", hl.dsp.window.drag(), { mouse = true })
+hl.bind(mainMod .. " + mouse:273", hl.dsp.window.resize(), { mouse = true })
 
 -- Brillo con SUPER + F1/F2
 hl.bind(mainMod .. " + F1", hl.dsp.exec_cmd("swayosd-client --brightness -5"), { locked = true })
