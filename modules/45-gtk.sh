@@ -7,6 +7,6 @@ log "Tema GTK (gsettings)"
 gsettings set org.gnome.desktop.interface gtk-theme "catppuccin-mocha-blue-standard+default"
 gsettings set org.gnome.desktop.interface color-scheme prefer-dark
 gsettings set org.gnome.desktop.interface icon-theme "Papirus-Dark"
-gsettings set org.gnome.desktop.interface font-name "Maple Mono NF 11"
+gsettings set org.gnome.desktop.interface font-name "SF Pro Text 11"
 gsettings set org.gnome.desktop.interface cursor-theme "catppuccin-mocha-blue-cursors"
 gsettings set org.gnome.desktop.interface cursor-size 24

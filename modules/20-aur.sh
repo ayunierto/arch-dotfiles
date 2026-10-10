@@ -12,4 +12,6 @@ aur_install \
   wofi-emoji \
   ryzenadj \
   catppuccin-gtk-theme-mocha \
-  catppuccin-cursors-mocha
+  catppuccin-cursors-mocha \
+  otf-san-francisco \
+  otf-san-francisco-mono
