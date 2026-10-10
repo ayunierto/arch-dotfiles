@@ -55,9 +55,25 @@ Al generar comandos de terminal, scripts de shell o automatizaciones, **SIEMPRE*
 - **No Asunciones:** Si falta información crítica de entorno o variables de entorno, preguntar antes de asunciones arriesgadas.
 - **Git Commits:** Mensajes bajo convención _Conventional Commits_ (`feat:`, `fix:`, `refactor:`, `chore:`, `docs:`).
 
+## 6. Privilegios y Autorización
+
+Las sesiones de Hyprland **no tienen TTY controladora**, por lo que `sudo` falla al ejecutarse desde una herramienta no interactiva con `sudo: a terminal is required to read the password`. **NUNCA** pedirle al usuario su contraseña, ni escribir, guardar o pasar secretos en comandos.
+
+- **Orden de Escalamiento:** SIEMPRE intentar primero la vía de menor privilegio.
+  1. **Sin root primero:** `udisksctl mount|unmount|power-off|info|dump -b /dev/sdX1`, además de `wl-copy`, `notify-send` y `wofi`. La mayoría de tareas de almacenamiento no requieren root.
+  2. **`pkexec` para trabajo privilegiado:** abre un diálogo gráfico de contraseña. El usuario escribe su contraseña en el prompt de polkit — nunca en el chat.
+  3. **Último recurso:** entregarle al usuario un comando copiable para su propia terminal.
+- **Verificar el Agente de Polkit:** si `pkexec` cae al modo texto (`Error creating textual authentication agent`), comprobar con `ps -eo comm | rg polkit`. Ver solo `polkitd` significa que no hay agente corriendo; iniciar uno con la ruta real resuelta vía `pacman -Ql polkit-gnome` (nunca de memoria):
+  ```bash
+  nohup /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1 >/dev/null 2>&1 &
+  ```
+- **Resolver Rutas Reales, Nunca Adivinar:** NUNCA asumir rutas de binarios o librerías desde la memoria. Usar `command -v <bin>` o `pacman -Ql <paquete> | rg <patrón>`. Una ruta incorrecta falla en silencio y cuesta más tiempo que la comprobación.
+- **Confirmar Antes de Operaciones Destructivas:** `dd`, `mkfs`, `wipefs`, `parted` y escrituras sobre `/dev/sd*` destruyen datos de forma irreversible. Indicar exactamente qué se va a borrar y obtener confirmación explícita — misma regla ya aplicada a DDL/DML en §7 (Supabase).
+- **NUNCA REINICIAR EL SISTEMA SIN PERMISO EXPLÍCITO:** `reboot`, `shutdown`, `poweroff`, `systemctl reboot`, `systemctl poweroff` y comandos equivalentes requieren confirmación explícita del usuario antes de ejecutarse. El sistema puede tener trabajo en curso, VMs, contenedores, o procesos críticos que se perderían.
+
 ---
 
-## 6. Model Context Protocol (MCP) Integrations
+## 7. Model Context Protocol (MCP) Integrations
 
 <!-- context7 -->
 
