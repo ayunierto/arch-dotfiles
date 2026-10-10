@@ -22,6 +22,10 @@ Config de Waybar con Catppuccin (Mocha). La barra activa se elige en `config.jso
 
 La barra activa se cambia editando el `include` de `config.jsonc` y el `@import` de `style.css` (deben apuntar a la misma barra).
 
+## Fuentes
+
+La barra activa es `bars/top/top-bar-2`. Waybar prioriza **SF Pro Text** y mantiene Maple Mono NF, JetBrainsMono Nerd Font y Noto Sans como fuentes de respaldo (`theme/theme.css`). San Francisco y su variante monoespaciada se instalan desde AUR con `otf-san-francisco` y `otf-san-francisco-mono`.
+
 ## Módulo DeepSeek (horario de tarifa)
 
 Indica en un vistazo si DeepSeek cobra tarifa completa o el **50% de descuento** por estar fuera de horas pico. Sirve para saber cuándo conviene darle uso intensivo o tirar del modelo pro.

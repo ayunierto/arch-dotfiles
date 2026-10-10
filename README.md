@@ -1,16 +1,37 @@
 # Arch Hyprland Dotfiles
 
-Entorno de desarrollo reproducible para Arch Linux: instalador bash modular y configs de Hyprland/Hyprlock/Hyprpaper/Hypridle/Waybar/Kitty/Wofi/SwayNC,swayosd, con extras opcionales.
+Entorno de desarrollo reproducible para Arch Linux: instalador bash modular y configs de Hyprland/Hyprlock/Hyprpaper/Hypridle/Waybar/Kitty/Wofi/SwayNC/SwayOSD, con extras opcionales.
 
 ![Escritorio](docs/desktop.png)
 
-## Instalación rápida
+## Índice
+
+- [Requisitos previos](#requisitos-previos)
+- [Instalación](#instalación)
+- [Estructura](#estructura)
+- [Módulos del instalador](#módulos-del-instalador)
+- [Documentación](#documentación)
+- [Extras opcionales](#extras-opcionales)
+- [Contributing](#contributing)
+- [Licencia](#licencia)
+
+## Requisitos previos
+
+- **Arch Linux** (el bootstrap lo verifica vía `/etc/os-release`).
+- **Hyprland instalado** — el instalador configura sus herramientas (`hyprpaper`, `hypridle`, `hyprlock`, `hyprsunset`) y los portales (`xdg-desktop-portal-hyprland`), pero **no instala el compositor**.
+- Un usuario normal con **`sudo`** (no se ejecuta como root).
+- **Conexión a internet**.
+- `git`, `curl` y `unzip` — el bootstrap los instala si faltan.
+
+## Instalación
+
+### Rápida
 
 ```bash
 bash -c "$(curl -fsSL https://raw.githubusercontent.com/ayunierto/arch-dotfiles/main/bootstrap.sh)"
 ```
 
-## Instalación manual
+### Manual
 
 ```bash
 git clone https://github.com/ayunierto/arch-dotfiles.git ~/.dotfiles
@@ -18,7 +39,7 @@ cd ~/.dotfiles
 ./install.sh
 ```
 
-Requiere Arch Linux y `sudo`. Es idempotente: los archivos existentes se respaldan como `<archivo>.bak.<epoch>` antes de reemplazarse por symlinks.
+Es idempotente: los archivos existentes se respaldan como `<archivo>.bak.<epoch>` antes de reemplazarse por symlinks. Al terminar, abre una terminal nueva o ejecuta `exec zsh`.
 
 ## Estructura
 
@@ -29,10 +50,12 @@ Requiere Arch Linux y `sudo`. Es idempotente: los archivos existentes se respald
 ├── lib/              # helpers (pacman, AUR, symlinks, systemd, logs)
 ├── modules/          # pasos del instalador (10..90)
 ├── config/           # gtk, hypr, kitty, opencode, swaync, swayosd, waybar, wofi
-├── bin/              # wifi-menu, wofi-emoji, reload-waybar, reload-swaync
+├── bin/              # wifi-menu, wofi-emoji, screen-recorder, reload-waybar, reload-swaync
 ├── docs/             # guías adicionales
 └── extras/           # extras opcionales (no los instala install.sh)
 ```
+
+`~/.zshrc`, `~/.aliases`, `~/.exports`, `~/.gitconfig`, los temas de opencode (`~/.config/opencode/themes`) y `~/.config/{gtk-3.0,gtk-4.0,hypr,kitty,swaync,swayosd,waybar,wofi}` son symlinks a este repo. Edita aquí, no las copias enlazadas.
 
 ## Módulos del instalador
 
@@ -47,80 +70,16 @@ Se ejecutan al hacer `source`, en orden numérico:
 - `70-docker.sh` — Docker + grupo
 - `90-finish.sh` — ajustes finales
 
-## Configs
+## Documentación
 
-`~/.zshrc`, `~/.aliases`, `~/.exports`, `~/.gitconfig`, los temas de opencode (`~/.config/opencode/themes`) y `~/.config/{gtk-3.0,gtk-4.0,hypr,kitty,swaync,swayosd,waybar,wofi}` son symlinks a este repo. Edita aquí, no las copias enlazadas.
+Explicaciones detalladas en páginas aparte:
 
-### Tema
-
-Los colores se definen por capas, todas versionadas en este repo:
-
-- **waybar, swaync y swayosd** leen `config/waybar/theme/theme.css` vía `@import '../waybar/theme/theme.css'`. Ese archivo importa la paleta activa (`catppuccin-mocha.css` o `catppuccin-latte.css`) — cambiarlo migra el tema de los tres a la vez. **wofi es la excepción**: carga su CSS con `gtk_css_provider_load_from_data` y GTK resuelve los `@import` relativos contra el CWD, así que `config/wofi/style.css` lleva la paleta de mocha copiada inline — al cambiar de tema, actualízala ahí también.
-- **Apps GTK** (Dolphin, diálogos GTK, etc.) usan una plantilla Catppuccin Mocha instalada desde AUR (`catppuccin-gtk-theme-mocha`, variante `catppuccin-mocha-blue-standard+default`) más cursores `catppuccin-cursors-mocha`. El tema, fuente, iconos (`Papirus-Dark`) y cursor se aplican en `config/gtk/gtk-3.0/settings.ini` y `config/gtk/gtk-4.0/settings.ini` (symlinks) y, para los apps libadwaita/GTK4 que solo leen dconf, en `modules/45-gtk.sh` vía `gsettings`. El nombre del tema debe coincidir con la carpeta en `/usr/share/themes` (el de AUR va en minúsculas, `+` incluido).
-- **opencode** tiene su tema `config/opencode/themes/catppuccin-mocha-blue.json` (symlink en `~/.config/opencode/themes`), definido para coincidir con la paleta Catppuccin del resto.
-- **kitty** (`config/kitty/current-theme.conf`) e **hypr** (`config/hypr/theme/theme.conf`, que `hyprlock.conf` hace `source`) usan formatos propios.
-
-### Waybar
-
-La barra activa es `config/waybar/bars/top/top-bar-2.jsonc`. Incluye un módulo **DeepSeek** (`config/waybar/modules/custom-deepseek.jsonc`) que muestra con un icono de color si la API está en horario **peak** (tarifa completa) u **off-peak** (50% de descuento), evaluado en UTC; un script (`config/waybar/scripts/deepseek-peak.sh watch`) avisa con `notify-send` al cambiar de tarifa. Detalles en `config/waybar/README.md`.
-
-### Atajos de teclado
-
-Definidos en `config/hypr/modules/keybinds.lua` (modificador principal `local mainMod = "SUPER"`):
-
-| Atajo                           | Acción                                                          |
-| ------------------------------- | --------------------------------------------------------------- |
-| `SUPER + Enter`                 | Terminal                                                        |
-| `SUPER + Q`                     | Cerrar ventana activa                                           |
-| `SUPER + M`                     | Apagar / salir de la sesión                                     |
-| `SUPER + E`                     | Gestor de archivos                                              |
-| `SUPER + B`                     | Navegador                                                       |
-| `SUPER + C`                     | Editor                                                          |
-| `SUPER + Z`                     | Zed                                                             |
-| `SUPER + R`                     | Menú (wofi)                                                     |
-| `SUPER + .`                     | Selector de emojis (wofi-emoji)                                 |
-| `SUPER + W`                     | Menú Wi-Fi (conectar redes vía nmcli)                           |
-| `SUPER + F5`                    | Re-scanear el menú Wi-Fi si está abierto                        |
-| `SUPER + V`                     | Activar/desactivar floating                                     |
-| `SUPER + P`                     | Modo pseudotileado (dwindle)                                    |
-| `SUPER + F`                     | Pantalla completa                                               |
-| `SUPER + F6`                    | Bloquear pantalla (hyprlock)                                    |
-| `SUPER + SHIFT + F6`            | Apagar/encender pantallas (DPMS)                                |
-| `SUPER + SHIFT + S`             | Captura parcial: guarda en `~/Pictures` y copia al portapapeles |
-| `SUPER + F8`                    | Grabación de pantalla (sistema + micrófono)                     |
-| `SUPER + SHIFT + F8`            | Grabación de pantalla (solo audio del sistema)                  |
-| `SUPER + [1-9,0]`               | Cambiar workspace                                               |
-| `SUPER + SHIFT + [1-9,0]`       | Mover ventana a workspace                                       |
-| `SUPER + Flechas`               | Mover foco                                                      |
-| `SUPER + SHIFT + Flechas`       | Mover ventana                                                   |
-| `SUPER + CTRL + Flechas`        | Redimensionar ventana                                           |
-| `SUPER + F1/F2`                 | Brillo `-5`/`+5`                                                |
-| `SUPER + F10`                   | Silenciar audio                                                 |
-| `SUPER + F11/F12`               | Volumen `-5`/`+5`                                               |
-| `SUPER + SHIFT + W`             | Recargar Waybar                                                 |
-| `SUPER + SHIFT + R`             | Recargar Hyprland                                               |
-| `SUPER + Rueda`                 | Navegar workspaces                                              |
-| `SUPER + LMB/RMB` (arrastrando) | Mover/redimensionar ventana                                     |
-| Teclas multimedia               | Volumen, silencio y brillo                                      |
-
-### Emojis (wofi-emoji)
-
-Selector de emojis integrado con el lanzador wofi. Se abre con `SUPER + .` (`config/hypr/modules/keybinds.lua`) y, al pulsar `Enter`, teclea el emoji directamente en el campo enfocado vía `wtype` (o lo copia al portapapeles con `wl-copy`). La tecla enlaza el wrapper `bin/wofi-emoji` (symlink en `~/.local/bin`, por ruta completa porque el PATH de Hyprland no incluye `~/.local/bin`); el wrapper reutiliza la lista de emojis del paquete AUR y, en apps Chromium/Electron (VSCode, Discord, Chrome...), inserta el emoji por portapapeles + `Ctrl+V` simulado porque `wtype` no teclea bien ciertos caracteres en esas apps. Dependencias: `wofi`, `wl-clipboard`, `wtype` (`modules/10-system.sh`), `wofi-emoji` desde AUR (`modules/20-aur.sh`) y `jq`. El renderizado usa `noto-fonts-emoji`.
-
-### Wi-Fi (wifi-menu)
-
-Menú Wi-Fi lanzado con `SUPER + W` (`config/hypr/modules/keybinds.lua`) vía el wrapper `bin/wifi-menu` (symlink en `~/.local/bin`, por ruta completa porque el PATH de Hyprland no incluye `~/.local/bin`). Lista las redes escaneadas con `nmcli`, marcando la conectada (`◉`) y mostrando barras de intensidad; se conecta a redes guardadas con `nmcli connection up` y pide la contraseña en el resto. El item `🔍 Re-scanear` fuerza un escaneo nuevo sin cerrar el flujo. Dependencias: `nmcli` (NetworkManager, habilitado en `modules/10-system.sh`), `wofi` y `libnotify` (`modules/10-system.sh`).
-
-### Grabación de pantalla (screen-recorder)
-
-Grabador con `SUPER + F8` (audio del sistema + micrófono, mezclados) y `SUPER + SHIFT + F8` (solo audio del sistema); ambos son toggle, se pulsan otra vez para detener. Enlaza el wrapper `bin/screen-recorder` (symlink en `~/.local/bin`) y usa `wf-recorder`, guardando en `~/Videos` como `rec_<fecha>.mp4` (`$XDG_VIDEOS_DIR` si existe). Al detener avisa por `notify-send` con la ruta, la duración y el tamaño. El estado (PID, archivo y módulos de audio cargados) vive en `$XDG_RUNTIME_DIR`, así que si la máquina se reinicia no quedan sumideros virtuales de audio huérfanos.
-
-Dos detalles que no son obvios:
-
-- wf-recorder 0.6 se llama siempre con `--audio-backend=pulse`. Con el valor por defecto `auto` no crea lector de audio y graba **en silencio sin avisar**, y con el backend `pipewire` los nombres de dispositivo se comparan contra el `node.name` nativo, donde `algo.monitor` no existe. Con `pulse` los nombres son los de `pactl` (pipewire-pulse los publica).
-- El modo con micrófono carga un `module-null-sink` virtual más dos `module-loopback` (micrófono y monitor del sink por defecto) y graba `screen-recorder-mix.monitor`. Los IDs que devuelve `pactl load-module` se guardan y se descargan **por ID** al detener; nunca con `unload-module module-null-sink`, que también mataría sumideros virtuales ajenos. El null-sink se crea con `device.idle_timeout=0` para que no se suspenda en silencio y corte la pista de audio.
-
-Dependencias: `wf-recorder` y `libnotify` (`modules/10-system.sh`); `pactl` viene con `pipewire-pulse`.
+- **Atajos de teclado** — tabla completa de atajos de Hyprland, definidos en `config/hypr/modules/keybinds.lua`. Ver [`docs/KEYBINDS.md`](docs/KEYBINDS.md).
+- **Sistema de temas** — cómo se definen los colores por capas (waybar/swaync/swayosd, apps GTK, opencode, kitty y hypr). Ver [`docs/THEMING.md`](docs/THEMING.md).
+- **Waybar** — barra activa, fuentes y módulos custom (DeepSeek, hyprsunset). Ver [`config/waybar/README.md`](config/waybar/README.md).
+- **Utilidades** — menú Wi-Fi, selector de emojis y grabador de pantalla. Ver [`docs/UTILITIES.md`](docs/UTILITIES.md).
+- **Android SDK CLI** — Android SDK Command Line Tools para Expo / React Native. Ver [`docs/COMMAND_LINE_TOOLS.md`](docs/COMMAND_LINE_TOOLS.md).
+- **Thermal Guard** — ajuste automático de potencia en AMD Ryzen (extra opcional). Ver [`extras/thermal-guard/README.md`](extras/thermal-guard/README.md).
 
 ## Extras opcionales
 
@@ -128,11 +87,8 @@ No forman parte de `install.sh`; se instalan aparte porque son específicos de u
 
 - **Thermal Guard** (`extras/thermal-guard/`): ajuste automático de potencia en AMD Ryzen por temperatura. Instrucciones en `extras/thermal-guard/README.md`.
 
-## Documentación
-
-- `docs/COMMAND_LINE_TOOLS.md`: Android SDK Command Line Tools para Expo / React Native.
-
 ## Contributing
+
 No dudes en abrir incidencias y solicitudes de fusión con las correcciones.
 
 ## Licencia
