@@ -8,6 +8,7 @@ aur_install \
   ttf-nerd-fonts-symbols \
   ttf-nerd-fonts-symbols-common \
   ttf-geist-mono \
+  ttf-google-sans-code-nf \
   visual-studio-code-bin \
   wofi-emoji \
   ryzenadj \
